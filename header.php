@@ -9,67 +9,95 @@ require "class/product.php";
 
 <div class="header">
     <div class="header__main">
-        <div class="header__main-logo">
+        <a class="header__main-logo" href="/">
             <img src="https://upload.wikimedia.org/wikipedia/vi/8/8d/The_gioi_di_dong_logo.svg" alt="logo">
-        </div>
+        </a>
         <div class="header__main-search">
             <div class="header__main-search-input">
-                <input type="search" >
+                <input type="search">
             </div>
             <div class="header__main-search-icon">
                 <i class="bi bi-search"></i>
             </div>
         </div>
         <div class="header__main-right">
-            <a class="header__main-cart" href="<?php print "../buyer/cart" ?>">
+            <a class="header__main-cart" href="../buyer/cart">
                 <div class="header__main-cart-icon">
                     <i class="bi bi-cart3"></i>
                 </div>
-                Giỏ hàng
+                <span>Giỏ hàng</span>
             </a>
-            <a class="header__main-purchase" href="../buyer/purchase">Đơn hàng</a>
-            <a class="header__main-account" href="../buyer/account">
-                <div class="header__main-account-image">
-                    <!-- <img src="..." alt=""> -->
+            <a class="header__main-purchase" href="../buyer/purchase">
+                <div class="header__main-purchase-icon">
+                    <i class="bi bi-bag"></i>
                 </div>
-                Thái Phương Nam
+                <span>Đơn hàng</span>
             </a>
+            <a class="header__main-account" href="../buyer/account">
+                <div class="header__main-account-icon">
+                    <i class="bi bi-person-circle"></i>
+                </div>
+                <div class="header__main-account-name">Thái Phương Nam</div>
+            </a>
+            <div class="header__main-menu jsToggleMenu active">
+                <i class="bi bi-list"></i>
+            </div>
         </div>
     </div>
-    <div class="header__menu">
+    <div class="header__menu jsMenu">
         <a class="header__menu-item" href="/.">
             <i class="bi bi-house-door"></i>
-            Trang chủ
+            <span>Trang chủ</span>
         </a>
         <a class="header__menu-item" href="/categories">
             <i class="bi bi-bookmark-star"></i>
-            Danh mục
+            <span>Danh mục</span>
         </a>
         <a class="header__menu-item" href="/products">
             <i class="bi bi-box"></i>
-            Sản phẩm
+            <span>
+                Sản phẩm
+            </span>
         </a>
         <a class="header__menu-item" href="/news">
             <i class="bi bi-newspaper"></i>
-            Bài viết
+            <span>Bài viết</span>
         </a>
         <a class="header__menu-item" href="/contact&policy">
             <i class="bi bi-telephone"></i>
-            Chính sách bảo hành & Liên hệ
+            <span>Chính sách bảo hành & Liên hệ</span>
         </a>
     </div>
 </div>
 
 <script>
-    window.onload = () => {
-        const u = new URL(location.href)
-        const menu = (document.querySelector(".header__menu")).querySelectorAll("a")
-        menu.forEach((item) => {
-            const path = new URL(item.href).pathname
-            if (path == u.pathname) {
-                item.classList.add("active")
-            }
+    window.onload = function() {
+        ;
+        (function() {
+            const u = new URL(location.href)
+            const menu = (document.querySelector(".header__menu")).querySelectorAll("a")
+            menu.forEach((item) => {
+                const path = new URL(item.href).pathname
+                if (path == u.pathname) {
+                    item.classList.add("active")
+                }
 
-        })
+            })
+        })()
+
+        ;
+        (function() {
+            const openMenu = document.querySelector(".jsToggleMenu")
+            const menu = document.querySelector(".jsMenu")
+            openMenu.addEventListener("click", () => {
+                openMenu.classList.toggle("active")
+                if (openMenu.classList.contains("active")) {
+                    menu.classList.remove("active")
+                } else {
+                    menu.classList.add("active")
+                }
+            })
+        })()
+
     }
 </script>
