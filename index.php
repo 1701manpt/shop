@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="./icon/shop.ico" type="image/x-icon">
     <title>Trang chủ | Nghị Quân Shop</title>
-
+    
 </head>
 
 <body>
@@ -15,11 +15,10 @@
         <?php
         require "header.php";
         ?>
-
-        <div class="slider">
-            <img src="https://cdn.tgdd.vn/2022/03/banner/reno7-830-300-830x300.png" alt="">
-        </div>
         <div class="body">
+            <div class="slider">
+                <img src="https://cf.shopee.vn/file/91f955d5a46d4e1210b8fa1374194583_xxhdpi" alt="">
+            </div>
             <!-- danh mục -->
             <div class="area area-category">
                 <div class="area-title">
@@ -75,7 +74,7 @@
                     ?>
                 </div>
                 <div class="area-view-full">
-                    <a href="/products.php">Xem tất cả</a>
+                    <a href="/products.php?sort_by=newest">Xem tất cả</a>
                 </div>
             </div>
 

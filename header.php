@@ -2,15 +2,22 @@
     window.onload = function() {
         ;
         (function() {
-            const u = new URL(location.href)
-            const menu = (document.querySelector(".header__menu")).querySelectorAll("a")
-            menu.forEach((item) => {
-                const path = new URL(item.href).pathname
-                if (path == u.pathname) {
-                    item.classList.add("active")
+            try {
+                document.title = "hehe";
+            } catch (e) {}
+        });
+        (function() {
+            try {
+                const u = new URL(location.href)
+                const menu = (document.querySelector(".header__menu")).querySelectorAll("a")
+                menu.forEach((item) => {
+                    const path = new URL(item.href).pathname
+                    if (path == u.pathname) {
+                        item.classList.add("active")
 
-                }
-            })
+                    }
+                })
+            } catch (e) {}
         })();
         (function() {
             try {
@@ -23,9 +30,7 @@
                         body.classList.toggle("disabled-scrollbar")
                     })
                 })
-            } catch (e) {
-                console.error(e)
-            }
+            } catch (e) {}
         })();
         (function() {
             try {
@@ -36,18 +41,18 @@
                         item.classList.add("active")
                     }
                 })
-            } catch (e) {
-                console.error(e)
-            }
+            } catch (e) {}
         })();
         (function() {
-            const u = new URL(location.href)
-            const menu = (document.querySelector(".purchase-menu")).querySelectorAll("a")
-            menu.forEach((item) => {
-                if (u == item.href) {
-                    item.classList.add("active")
-                }
-            })
+            try {
+                const u = new URL(location.href)
+                const menu = (document.querySelector(".purchase-menu")).querySelectorAll("a")
+                menu.forEach((item) => {
+                    if (u == item.href) {
+                        item.classList.add("active")
+                    }
+                })
+            } catch (e) {}
         })();
     }
 </script>

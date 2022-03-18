@@ -15,7 +15,6 @@
         <div class="body">
             <div class="body-title">Danh sách sản phẩm</div>
             <div class="filter">
-                <span>Sắp xếp theo</span>
                 <a class="filter-item" href="?sort_by=popular">Phổ biến</a>
                 <a class="filter-item" href="?sort_by=newest">Mới nhất</a>
                 <a class="filter-item" href="?sort_by=sales">Bán chạy</a>
