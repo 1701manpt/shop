@@ -32,6 +32,17 @@ body.disabled-scrollbar {
   overflow: hidden;
 }
 
+.backdrop {
+  display: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  inset: 0;
+  position: fixed;
+  z-index: 1;
+}
+.backdrop.active {
+  display: block;
+}
+
 .header {
   color: white;
   position: fixed;
@@ -167,7 +178,7 @@ body.disabled-scrollbar {
 }
 .body-title {
   font-size: 1.5em;
-  font-weight: bolder;
+  font-weight: lighter;
   text-transform: uppercase;
   margin: 16px;
 }
@@ -195,7 +206,6 @@ body.disabled-scrollbar {
   width: 100%;
 }
 .product-name {
-  font-weight: lighter;
   font-style: italic;
 }
 .product-price {
@@ -245,7 +255,6 @@ body.disabled-scrollbar {
   width: 100%;
 }
 .category-name {
-  font-weight: lighter;
   font-style: italic;
 }
 
@@ -327,7 +336,7 @@ body.disabled-scrollbar {
   outline: none;
 }
 .filter-item.active {
-  background-color: rgba(255, 69, 0, 0.8);
+  background-color: #ff4500;
   color: white;
 }
 
@@ -349,7 +358,7 @@ body.disabled-scrollbar {
 }
 .area-title {
   text-transform: uppercase;
-  font-weight: bolder;
+  font-weight: lighter;
   font-size: 1.5em;
   margin: 16px;
 }
@@ -646,6 +655,7 @@ body.disabled-scrollbar {
   .header-menu.active {
     transform: translateX(0);
     transition: all 0.5s ease;
+    z-index: 2;
   }
   .header-menu-close {
     display: flex;

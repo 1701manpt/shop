@@ -19,10 +19,12 @@
                 const openMenus = document.querySelectorAll(".jsToggleMenu")
                 const menu = document.querySelector(".jsMenu")
                 const body = document.querySelector("body")
+                const backDrop = document.querySelector(".backdrop")
                 openMenus.forEach(function(openMenu) {
                     openMenu.addEventListener("click", () => {
                         menu.classList.toggle("active")
                         body.classList.toggle("disabled-scrollbar")
+                        backDrop.classList.toggle("active")
                     })
                 })
             } catch (e) {}
@@ -59,7 +61,7 @@ require "class/product.php";
 <link rel="stylesheet" href="/index.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
-
+<div class="backdrop"></div>
 <div class="header">
     <div class="header-main">
         <a class="header-main-trademark" href="/">
