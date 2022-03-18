@@ -3,13 +3,8 @@
         ;
         (function() {
             try {
-                document.title = "hehe";
-            } catch (e) {}
-        });
-        (function() {
-            try {
                 const u = new URL(location.href)
-                const menu = (document.querySelector(".header__menu")).querySelectorAll("a")
+                const menu = (document.querySelector(".header-menu")).querySelectorAll("a")
                 menu.forEach((item) => {
                     const path = new URL(item.href).pathname
                     if (path == u.pathname) {
@@ -66,67 +61,82 @@ require "class/product.php";
 
 
 <div class="header">
-    <div class="header__main">
-        <a class="header__main-logo" href="/">
-            <img src="https://cf.shopee.vn/file/678c973a8141846a6840f1d582898ad1_tn" alt="logo">
+    <div class="header-main">
+        <a class="header-main-trademark" href="/">
+            <div class="header-main-trademark-image">
+                <img src="https://cf.shopee.vn/file/678c973a8141846a6840f1d582898ad1_tn" alt="logo">
+            </div>
+            <span>Nghị Quân Shop</span>
         </a>
-        <div class="header__main-search">
-            <div class="header__main-search-input">
+        <div class="header-main-search">
+            <div class="header-main-search-input">
                 <input type="text" placeholder="Tìm kiếm...">
             </div>
-            <div class="header__main-search-icon">
+            <div class="header-main-search-icon">
                 <i class="bi bi-search"></i>
             </div>
         </div>
-        <div class="header__main-right">
-            <a class="header__main-cart" href="../buyer/cart.php">
-                <div class="header__main-cart-icon">
+        <div class="header-main-right">
+            <a class="header-main-cart" href="../buyer/cart.php">
+                <div class="header-main-cart-icon">
                     <i class="bi bi-cart3"></i>
                 </div>
                 <span>Giỏ hàng</span>
             </a>
-            <a class="header__main-purchase" href="../buyer/purchase.php?type=1">
-                <div class="header__main-purchase-icon">
+            <a class="header-main-purchase" href="../buyer/purchase.php?type=1">
+                <div class="header-main-purchase-icon">
                     <i class="bi bi-bag"></i>
                 </div>
                 <span>Đơn hàng</span>
             </a>
-            <a class="header__main-account" href="../buyer/account.php">
-                <div class="header__main-account-icon">
+            <a class="header-main-account" href="../buyer/account.php">
+                <div class="header-main-account-icon">
                     <i class="bi bi-person-circle"></i>
                 </div>
-                <div class="header__main-account-name">Thái Phương Nam</div>
+                <span class="header-main-account-name">Thái Phương Nam</span>
             </a>
-            <div class="header__main-menu jsToggleMenu">
-                <i class="bi bi-list"></i>
+            <div class="header-main-menu jsToggleMenu">
+                <div class="header-main-menu-icon">
+                    <i class="bi bi-list"></i>
+                </div>
             </div>
         </div>
     </div>
-    <div class="header__menu jsMenu">
-        <div class="header__menu-close jsToggleMenu">
-            <i class="bi bi-x-lg"></i>
+    <div class="header-menu jsMenu">
+        <div class="header-menu-close jsToggleMenu">
+            <div class="header-menu-close-icon">
+                <i class="bi bi-x-lg"></i>
+            </div>
         </div>
-        <a class="header__menu-item" href="/.">
-            <i class="bi bi-house-door"></i>
+        <a class="header-menu-item" href="/.">
+            <div class="header-menu-item-icon">
+                <i class="bi bi-house-door"></i>
+            </div>
             <span>Trang chủ</span>
         </a>
-        <a class="header__menu-item" href="/categories.php">
-            <i class="bi bi-bookmark-star"></i>
+        <a class="header-menu-item" href="/categories.php">
+            <div class="header-menu-item-icon">
+                <i class="bi bi-bookmark-star"></i>
+            </div>
             <span>Danh mục</span>
         </a>
-        <a class="header__menu-item" href="/products.php?sort_by=popular">
-            <i class="bi bi-box"></i>
-            <span>
-                Sản phẩm
-            </span>
+        <a class="header-menu-item" href="/products.php?sort_by=popular">
+            <div class="header-menu-item-icon">
+                <i class="bi bi-box"></i>
+            </div>
+            <span>Sản phẩm</span>
         </a>
-        <a class="header__menu-item" href="/news.php">
-            <i class="bi bi-newspaper"></i>
+        <a class="header-menu-item" href="/news.php">
+            <div class="header-menu-item-icon">
+                <i class="bi bi-newspaper"></i>
+            </div>
             <span>Bài viết</span>
         </a>
-        <a class="header__menu-item" href="/contact&policy.php">
-            <i class="bi bi-telephone"></i>
-            <span>Chính sách bảo hành & Liên hệ</span>
+        <a class="header-menu-item" href="/contact&policy.php">
+            <div class="header-menu-item-icon">
+                <i class="bi bi-telephone"></i>
+            </div>
+            <span>Bảo hành & Liên hệ</span>
         </a>
     </div>
 </div>

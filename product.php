@@ -40,7 +40,7 @@
                         </div>
                         <div class="land-header-control">
                             <div class="land-header-control-add">
-                                <button>Thêm vào giỏ hàng</button>
+                                <button>Thêm vào giỏ</button>
                             </div>
                             <div class="land-header-control-order">
                                 <button>Đặt hàng</button>

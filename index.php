@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="./icon/shop.ico" type="image/x-icon">
     <title>Trang chủ | Nghị Quân Shop</title>
-    
+
 </head>
 
 <body>
@@ -19,8 +19,7 @@
             <div class="slider">
                 <img src="https://cf.shopee.vn/file/91f955d5a46d4e1210b8fa1374194583_xxhdpi" alt="">
             </div>
-            <!-- danh mục -->
-            <div class="area area-category">
+            <div class="area">
                 <div class="area-title">
                     DANH MỤC
                 </div>
@@ -29,11 +28,11 @@
                     $categories = new Category;
                     foreach ($categories->get_limit("block", 10) as $category) {
                         $str = '
-                        <a class="area-item" href="category?id=' . $category->get_id() . '">
-                        <div class="area-item-picture">
+                        <a class="category" href="category.php?id=' . $category->get_id() . '">
+                        <div class="category-image category-margin">
                             <img src="' . $category->get_image_avatar() . '" alt="">
                         </div>
-                        <div class="area-item-name">
+                        <div class="category-name category-margin">
                         ' . $category->get_name() . '
                         </div>
                         </a>
@@ -48,7 +47,7 @@
                 </div>
             </div>
 
-            <div class="area area-newest">
+            <div class="area">
                 <div class="area-title">
                     SẢN PHẨM MỚI
                 </div>
@@ -57,14 +56,14 @@
                     $products = new Product;
                     foreach ($products->get_newest(10) as $product) {
                         $str = '
-                        <a class="area-item" href="product?id=' . $product->get_id() . '">
-                        <div class="area-item-picture">
+                        <a class="product" href="product.php?id=' . $product->get_id() . '">
+                        <div class="product-image product-margin">
                             <img src="https://cf.shopee.vn/file/d260c6a682f800b56838f6e21f8d2e40" alt="">
                         </div>
-                        <div class="area-item-name">
+                        <div class="product-name product-margin">
                             ' . $product->get_name() . '
                         </div>
-                        <div class="area-item-price">
+                        <div class="product-price product-margin">
                             ' . $product->get_price() . ' ₫
                         </div>
                         </a>
@@ -85,14 +84,14 @@
                 $products = new Product;
                 foreach ($products->get_by_category($category->get_id(), "block") as $product) {
                     $str = '
-                    <a class="area-item" href="product?id=' . $product->get_id() . '">
-                    <div class="area-item-picture">
+                    <a class="product" href="/product.php?id=' . $product->get_id() . '">
+                    <div class="product-image product-margin">
                         <img src="https://cdn.tgdd.vn/Products/Images/42/261888/realme-c35-GREEN-thumb-600x600.jpg" alt="">
                     </div>
-                    <div class="area-item-name">
+                    <div class="product-name product-margin">
                         ' . $product->get_name() . '
                     </div>
-                    <div class="area-item-price">
+                    <div class="product-price product-margin">
                         ' . $product->get_price() . '
                     </div>
                     </a>

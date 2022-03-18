@@ -21,14 +21,14 @@
                         echo '<div class="area-list">';
                         foreach ($products->get_by_category($_GET["id"]) as $product) {
                             $str = '
-                            <a class="area-item" href="product?id=' . $product->get_id() . '">
-                            <div class="area-item-picture">
+                            <a class="product" href="product.php?id=' . $product->get_id() . '">
+                            <div class="product-image product-margin">
                                 <img src="https://cdn.tgdd.vn/Products/Images/42/261888/realme-c35-GREEN-thumb-600x600.jpg" alt="">
                             </div>
-                            <div class="area-item-name">
+                            <div class="product-name product-margin">
                                 ' . $product->get_name() . '
                             </div>
-                            <div class="area-item-price">
+                            <div class="product-price product-margin">
                                 ' . $product->get_price() . '
                             </div>
                             </a>

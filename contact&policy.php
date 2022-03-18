@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="./icon/shop.ico" type="image/x-icon">
-    <title>Chính sách bảo hành & Liên hệ | Nghị Quân Shop</title>
+    <title>Bảo hành & Liên hệ | Nghị Quân Shop</title>
 </head>
 
 <body>
@@ -15,7 +15,7 @@
         require "header.php";
         ?>
         <div class="body">
-            <div class="body-title">Chính sách bảo hành</div>
+            <div class="body-title">Bảo hành</div>
             <div class="body-title">Liên hệ</div>
         </div>
     </div>

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../icon/shop.ico" type="image/x-icon">
-    <title>Giỏ hàng</title>
+    <title>Giỏ hàng | Nghị Quân Shop</title>
 </head>
 
 <body>
@@ -27,131 +27,147 @@
                         </div>
                     </div>
                     <div class="cart-list">
-                        <div class="cart-item">
-                            <div class="cart-item-image">
+                        <div class="product">
+                            <div class="product-image product-margin">
                                 <img src="https://cf.shopee.vn/file/01336807163f0170f99bf8ccdeb64811_tn" alt="">
                             </div>
-                            <div class="cart-item-name">Áo quần oversize</div>
-                            <div class="cart-item-price">999999 đ</div>
-                            <div class="cart-item-select">
+                            <div class="product-name product-margin">Áo quần oversize</div>
+                            <div class="product-price product-margin">Giá: 999999 đ</div>
+                            <div class="product-select product-margin">
                                 <input type="checkbox" name="" id="">
                             </div>
-                            <div class="cart-item-order">
+                            <a class="product-control product-margin" href="/buyer/order.php">
                                 <button>Đặt hàng</button>
-                            </div>
-                            <div class="cart-item-delete">
+                            </a>
+                            <div class="product-control product-margin">
                                 <button>Xóa</button>
                             </div>
                         </div>
-                        <div class="cart-item">
-                            <div class="cart-item-image">
+                        <div class="product">
+                            <div class="product-image product-margin">
                                 <img src="https://cf.shopee.vn/file/01336807163f0170f99bf8ccdeb64811_tn" alt="">
                             </div>
-                            <div class="cart-item-name">Áo quần oversize</div>
-                            <div class="cart-item-price">999999 đ</div>
-                            <div class="cart-item-select">
+                            <div class="product-name product-margin">Áo quần oversize</div>
+                            <div class="product-price product-margin">Giá: 999999 đ</div>
+                            <div class="product-select product-margin">
                                 <input type="checkbox" name="" id="">
                             </div>
-                            <div class="cart-item-order">
+                            <a class="product-control product-margin" href="/buyer/order.php">
                                 <button>Đặt hàng</button>
-                            </div>
-                            <div class="cart-item-delete">
+                            </a>
+                            <div class="product-control product-margin">
                                 <button>Xóa</button>
                             </div>
                         </div>
-                        <div class="cart-item">
-                            <div class="cart-item-image">
+                        <div class="product">
+                            <div class="product-image product-margin">
                                 <img src="https://cf.shopee.vn/file/01336807163f0170f99bf8ccdeb64811_tn" alt="">
                             </div>
-                            <div class="cart-item-name">Áo quần oversize</div>
-                            <div class="cart-item-price">999999 đ</div>
-                            <div class="cart-item-select">
+                            <div class="product-name product-margin">Áo quần oversize</div>
+                            <div class="product-price product-margin">Giá: 999999 đ</div>
+                            <div class="product-select product-margin">
                                 <input type="checkbox" name="" id="">
                             </div>
-                            <div class="cart-item-order">
+                            <a class="product-control product-margin" href="/buyer/order.php">
                                 <button>Đặt hàng</button>
-                            </div>
-                            <div class="cart-item-delete">
+                            </a>
+                            <div class="product-control product-margin">
                                 <button>Xóa</button>
                             </div>
                         </div>
-                        <div class="cart-item">
-                            <div class="cart-item-image">
+                        <div class="product">
+                            <div class="product-image product-margin">
                                 <img src="https://cf.shopee.vn/file/01336807163f0170f99bf8ccdeb64811_tn" alt="">
                             </div>
-                            <div class="cart-item-name">Áo quần oversize</div>
-                            <div class="cart-item-price">999999 đ</div>
-                            <div class="cart-item-select">
+                            <div class="product-name product-margin">Áo quần oversize</div>
+                            <div class="product-price product-margin">Giá: 999999 đ</div>
+                            <div class="product-select product-margin">
                                 <input type="checkbox" name="" id="">
                             </div>
-                            <div class="cart-item-order">
+                            <a class="product-control product-margin" href="/buyer/order.php">
                                 <button>Đặt hàng</button>
-                            </div>
-                            <div class="cart-item-delete">
+                            </a>
+                            <div class="product-control product-margin">
                                 <button>Xóa</button>
                             </div>
                         </div>
-                        <div class="cart-item">
-                            <div class="cart-item-image">
+                        <div class="product">
+                            <div class="product-image product-margin">
                                 <img src="https://cf.shopee.vn/file/01336807163f0170f99bf8ccdeb64811_tn" alt="">
                             </div>
-                            <div class="cart-item-name">Áo quần oversize</div>
-                            <div class="cart-item-price">999999 đ</div>
-                            <div class="cart-item-select">
+                            <div class="product-name product-margin">Áo quần oversize</div>
+                            <div class="product-price product-margin">Giá: 999999 đ</div>
+                            <div class="product-select product-margin">
                                 <input type="checkbox" name="" id="">
                             </div>
-                            <div class="cart-item-order">
+                            <a class="product-control product-margin" href="/buyer/order.php">
                                 <button>Đặt hàng</button>
-                            </div>
-                            <div class="cart-item-delete">
+                            </a>
+                            <div class="product-control product-margin">
                                 <button>Xóa</button>
                             </div>
                         </div>
-                        <div class="cart-item">
-                            <div class="cart-item-image">
+                        <div class="product">
+                            <div class="product-image product-margin">
                                 <img src="https://cf.shopee.vn/file/01336807163f0170f99bf8ccdeb64811_tn" alt="">
                             </div>
-                            <div class="cart-item-name">Áo quần oversize</div>
-                            <div class="cart-item-price">999999 đ</div>
-                            <div class="cart-item-select">
+                            <div class="product-name product-margin">Áo quần oversize</div>
+                            <div class="product-price product-margin">Giá: 999999 đ</div>
+                            <div class="product-select product-margin">
                                 <input type="checkbox" name="" id="">
                             </div>
-                            <div class="cart-item-order">
+                            <a class="product-control product-margin" href="/buyer/order.php">
                                 <button>Đặt hàng</button>
-                            </div>
-                            <div class="cart-item-delete">
+                            </a>
+                            <div class="product-control product-margin">
                                 <button>Xóa</button>
                             </div>
                         </div>
-                        <div class="cart-item">
-                            <div class="cart-item-image">
+                        <div class="product">
+                            <div class="product-image product-margin">
                                 <img src="https://cf.shopee.vn/file/01336807163f0170f99bf8ccdeb64811_tn" alt="">
                             </div>
-                            <div class="cart-item-name">Áo quần oversize</div>
-                            <div class="cart-item-price">999999 đ</div>
-                            <div class="cart-item-select">
+                            <div class="product-name product-margin">Áo quần oversize</div>
+                            <div class="product-price product-margin">Giá: 999999 đ</div>
+                            <div class="product-select product-margin">
                                 <input type="checkbox" name="" id="">
                             </div>
-                            <div class="cart-item-order">
+                            <a class="product-control product-margin" href="/buyer/order.php">
                                 <button>Đặt hàng</button>
-                            </div>
-                            <div class="cart-item-delete">
+                            </a>
+                            <div class="product-control product-margin">
                                 <button>Xóa</button>
                             </div>
                         </div>
-                        <div class="cart-item">
-                            <div class="cart-item-image">
+                        <div class="product">
+                            <div class="product-image product-margin">
                                 <img src="https://cf.shopee.vn/file/01336807163f0170f99bf8ccdeb64811_tn" alt="">
                             </div>
-                            <div class="cart-item-name">Áo quần oversize</div>
-                            <div class="cart-item-price">999999 đ</div>
-                            <div class="cart-item-select">
+                            <div class="product-name product-margin">Áo quần oversize</div>
+                            <div class="product-price product-margin">Giá: 999999 đ</div>
+                            <div class="product-select product-margin">
                                 <input type="checkbox" name="" id="">
                             </div>
-                            <div class="cart-item-order">
+                            <a class="product-control product-margin" href="/buyer/order.php">
                                 <button>Đặt hàng</button>
+                            </a>
+                            <div class="product-control product-margin">
+                                <button>Xóa</button>
                             </div>
-                            <div class="cart-item-delete">
+                        </div>
+                        <div class="product">
+                            <div class="product-image product-margin">
+                                <img src="https://cf.shopee.vn/file/01336807163f0170f99bf8ccdeb64811_tn" alt="">
+                            </div>
+                            <div class="product-name product-margin">Áo quần oversize</div>
+                            <div class="product-price product-margin">Giá: 999999 đ</div>
+                            <div class="product-select product-margin">
+                                <input type="checkbox" name="" id="">
+                            </div>
+                            <a class="product-control product-margin" href="/buyer/order.php">
+                                <button>Đặt hàng</button>
+                            </a>
+                            <div class="product-control product-margin">
                                 <button>Xóa</button>
                             </div>
                         </div>

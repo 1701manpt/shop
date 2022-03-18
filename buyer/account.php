@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../icon/shop.ico" type="image/x-icon">
-    <title>Giỏ hàng</title>
+    <title>Tài khoản | Nghị Quân Shop</title>
 </head>
 
 <body>

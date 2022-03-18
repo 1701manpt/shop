@@ -25,11 +25,11 @@
                     echo '<div class="area-list">';
                     foreach ($categories->get_all("block") as $category) {
                         $str = '
-                            <a class="area-item" href="category?id=' . $category->get_id() . '">
-                            <div class="area-item-picture">
+                            <a class="category" href="category.php?id=' . $category->get_id() . '">
+                            <div class="category-image category-margin">
                                 <img src="' . $category->get_image_avatar() . '" alt="">
                             </div>
-                            <div class="area-item-name">
+                            <div class="category-name category-margin">
                             ' . $category->get_name() . '
                             </div>
                             </a>
