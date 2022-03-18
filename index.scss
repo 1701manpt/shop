@@ -615,7 +615,7 @@ body {
             height: 48px;
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(1, 48px);
-            
+
             &-menu {
                 display: flex;
                 justify-content: center;
@@ -746,7 +746,7 @@ body {
     }
 
     .body {
-        margin: 64px 0 16px 0;
+        margin: 64px 0;
 
         &-title {
             margin-bottom: 8px;
@@ -797,6 +797,7 @@ body {
         padding: 8px;
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
+
         &>span {
             display: none;
         }
@@ -804,7 +805,21 @@ body {
 
     .cart {
         &-header {
+            position: fixed;
+            inset: 0;
+            top: unset;
             padding: 8px;
+            margin-bottom: unset;
+            background-color: rgba($color-silver, 0.5);
+        }
+
+        &-selects,
+        &-orders {
+            width: 100%;
+
+            &>button {
+                width: 100%;
+            }
         }
 
         &-list {
@@ -825,8 +840,21 @@ body {
                 padding: 8px;
             }
 
-            &-name {
-                margin-bottom: 8px;
+            &-control {
+                position: fixed;
+                inset: 0;
+                top: unset;
+                padding: 8px;
+                background-color: rgba($color-silver, 0.5);
+
+                &-order,
+                &-add {
+                    width: 100%;
+
+                    &>button {
+                        width: 100%;
+                    }
+                }
             }
 
             &-image {
@@ -846,6 +874,14 @@ body {
 
         &-thumbnail {
             grid-template-columns: repeat(2, 1fr);
+        }
+
+        &-description {
+
+            &-title,
+            &-content {
+                padding: 8px;
+            }
         }
     }
 }

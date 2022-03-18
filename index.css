@@ -595,7 +595,7 @@ body.disabled-scrollbar {
   }
 
   .body {
-    margin: 64px 0 16px 0;
+    margin: 64px 0;
   }
   .body-title {
     margin-bottom: 8px;
@@ -639,7 +639,18 @@ body.disabled-scrollbar {
   }
 
   .cart-header {
+    position: fixed;
+    inset: 0;
+    top: unset;
     padding: 8px;
+    margin-bottom: unset;
+    background-color: rgba(241, 241, 241, 0.5);
+  }
+  .cart-selects, .cart-orders {
+    width: 100%;
+  }
+  .cart-selects > button, .cart-orders > button {
+    width: 100%;
   }
   .cart-list {
     grid-template-columns: repeat(2, 1fr);
@@ -654,8 +665,18 @@ body.disabled-scrollbar {
     align-items: start;
     padding: 8px;
   }
-  .land-header-name {
-    margin-bottom: 8px;
+  .land-header-control {
+    position: fixed;
+    inset: 0;
+    top: unset;
+    padding: 8px;
+    background-color: rgba(241, 241, 241, 0.5);
+  }
+  .land-header-control-order, .land-header-control-add {
+    width: 100%;
+  }
+  .land-header-control-order > button, .land-header-control-add > button {
+    width: 100%;
   }
   .land-header-image {
     grid-column: 1/6;
@@ -669,6 +690,9 @@ body.disabled-scrollbar {
   }
   .land-thumbnail {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .land-description-title, .land-description-content {
+    padding: 8px;
   }
 }
 @media screen and (min-width: 576px) and (max-width: 768px) {
