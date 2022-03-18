@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giỏ hàng</title>
+    <title>Đơn hàng</title>
 </head>
 
 <body>
@@ -17,12 +17,12 @@
             <div class="body-title">Đơn hàng</div>
             <div class="body-content">
                 <div class="purchase">
-                    <div class="purchase-header">
-                        <a href="?purchase-type-1">Chờ xác nhận</a>
-                        <a href="?purchase-type-2">Đã xác nhận</a>
-                        <a href="?purchase-type-3">Đang giao</a>
-                        <a href="?purchase-type-4">Đã giao</a>
-                        <a href="?purchase-type-5">Đã hủy</a>
+                    <div class="purchase-menu jsPurchaseMenu">
+                        <a href="?type=1">Chờ xác nhận</a>
+                        <a href="?type=2">Đã xác nhận</a>
+                        <a href="?type=3">Đang giao</a>
+                        <a href="?type=4">Đã giao</a>
+                        <a href="?type=5">Đã hủy</a>
                     </div>
                     <div class="purchase-list">
                         <div class="purchase-item">
