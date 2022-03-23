@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -54,7 +54,7 @@
                 <div class="area-list">
                     <?php
                     $products = new Product;
-                    foreach ($products->get_newest(10) as $product) {
+                    foreach ($products->get_newest('block', 10) as $product) {
                         $str = '
                         <a class="product" href="product.php?id=' . $product->get_id() . '">
                         <div class="product-image product-margin">
@@ -82,7 +82,7 @@
             foreach ($categories->get_all("block") as $category) {
                 $str = null;
                 $products = new Product;
-                foreach ($products->get_by_category($category->get_id(), "block") as $product) {
+                foreach ($products->get_by_category("block", $category->get_id()) as $product) {
                     $str = '
                     <a class="product" href="/product.php?id=' . $product->get_id() . '">
                     <div class="product-image product-margin">

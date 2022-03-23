@@ -1,5 +1,5 @@
 <?php
-    class connection {
+    class Connection {
         private $server_name = "localhost";
         private $database = "id16449405_nghiquan";
         // private $user_name = "id16449405_nam";

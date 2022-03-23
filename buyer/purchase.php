@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,6 +10,8 @@
     <link rel="shortcut icon" href="../icon/shop.ico" type="image/x-icon">
     <title>Đơn hàng | Nghị Quân Shop</title>
 </head>
+
+<?php require_once "check_account.php"; ?>
 
 <body>
     <div class="app">
@@ -33,9 +37,9 @@
                             </div>
                             <div class="order-amount order-margin">Tổng 16 sản phẩm khác nhau</div>
                             <div class="order-price order-margin">Tổng giá tiền 99999 đ</div>
-                            <div class="order-control order-margin">
+                            <a class="order-control order-margin" href="/buyer/order_detail.php?id=1">
                                 <button>Xem chi tiết</button>
-                            </div>
+                            </a>
                             <div class="order-control order-margin">
                                 <button>Hủy</button>
                             </div>
@@ -47,9 +51,9 @@
                             </div>
                             <div class="order-amount order-margin">Tổng 16 sản phẩm khác nhau</div>
                             <div class="order-price order-margin">Tổng giá tiền 99999 đ</div>
-                            <div class="order-control order-margin">
+                            <a class="order-control order-margin" href="/buyer/order_detail.php?id=1">
                                 <button>Xem chi tiết</button>
-                            </div>
+                            </a>
                             <div class="order-control order-margin">
                                 <button>Hủy</button>
                             </div>
@@ -61,9 +65,9 @@
                             </div>
                             <div class="order-amount order-margin">Tổng 16 sản phẩm khác nhau</div>
                             <div class="order-price order-margin">Tổng giá tiền 99999 đ</div>
-                            <div class="order-control order-margin">
+                            <a class="order-control order-margin" href="/buyer/order_detail.php?id=1">
                                 <button>Xem chi tiết</button>
-                            </div>
+                            </a>
                             <div class="order-control order-margin">
                                 <button>Hủy</button>
                             </div>
@@ -75,9 +79,9 @@
                             </div>
                             <div class="order-amount order-margin">Tổng 16 sản phẩm khác nhau</div>
                             <div class="order-price order-margin">Tổng giá tiền 99999 đ</div>
-                            <div class="order-control order-margin">
+                            <a class="order-control order-margin" href="/buyer/order_detail.php?id=1">
                                 <button>Xem chi tiết</button>
-                            </div>
+                            </a>
                             <div class="order-control order-margin">
                                 <button>Hủy</button>
                             </div>
@@ -89,9 +93,9 @@
                             </div>
                             <div class="order-amount order-margin">Tổng 16 sản phẩm khác nhau</div>
                             <div class="order-price order-margin">Tổng giá tiền 99999 đ</div>
-                            <div class="order-control order-margin">
+                            <a class="order-control order-margin" href="/buyer/order_detail.php?id=1">
                                 <button>Xem chi tiết</button>
-                            </div>
+                            </a>
                             <div class="order-control order-margin">
                                 <button>Hủy</button>
                             </div>
@@ -103,9 +107,9 @@
                             </div>
                             <div class="order-amount order-margin">Tổng 16 sản phẩm khác nhau</div>
                             <div class="order-price order-margin">Tổng giá tiền 99999 đ</div>
-                            <div class="order-control order-margin">
+                            <a class="order-control order-margin" href="/buyer/order_detail.php?id=1">
                                 <button>Xem chi tiết</button>
-                            </div>
+                            </a>
                             <div class="order-control order-margin">
                                 <button>Hủy</button>
                             </div>
@@ -117,9 +121,9 @@
                             </div>
                             <div class="order-amount order-margin">Tổng 16 sản phẩm khác nhau</div>
                             <div class="order-price order-margin">Tổng giá tiền 99999 đ</div>
-                            <div class="order-control order-margin">
+                            <a class="order-control order-margin" href="/buyer/order_detail.php?id=1">
                                 <button>Xem chi tiết</button>
-                            </div>
+                            </a>
                             <div class="order-control order-margin">
                                 <button>Hủy</button>
                             </div>
@@ -131,9 +135,9 @@
                             </div>
                             <div class="order-amount order-margin">Tổng 16 sản phẩm khác nhau</div>
                             <div class="order-price order-margin">Tổng giá tiền 99999 đ</div>
-                            <div class="order-control order-margin">
+                            <a class="order-control order-margin" href="/buyer/order_detail.php?id=1">
                                 <button>Xem chi tiết</button>
-                            </div>
+                            </a>
                             <div class="order-control order-margin">
                                 <button>Hủy</button>
                             </div>
@@ -145,9 +149,9 @@
                             </div>
                             <div class="order-amount order-margin">Tổng 16 sản phẩm khác nhau</div>
                             <div class="order-price order-margin">Tổng giá tiền 99999 đ</div>
-                            <div class="order-control order-margin">
+                            <a class="order-control order-margin" href="/buyer/order_detail.php?id=1">
                                 <button>Xem chi tiết</button>
-                            </div>
+                            </a>
                             <div class="order-control order-margin">
                                 <button>Hủy</button>
                             </div>

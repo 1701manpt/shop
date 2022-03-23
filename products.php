@@ -26,7 +26,7 @@
                     <?php
                     if (!isset($_GET["id"])) {
                         $products = new Product;
-                        foreach ($products->get_all() as $product) {
+                        foreach ($products->get_all("block") as $product) {
                             $str = '
                     <a class="product" href="product.php?id=' . $product->get_id() . '">
                     <div class="product-image product-margin">

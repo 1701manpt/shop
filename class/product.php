@@ -31,9 +31,9 @@ class Product
         return $this;
     }
 
-    function get_newest($amount) {
+    function get_newest($display, $amount) {
         $connection = new Connection;
-        $sql = "SELECT * FROM `product` ORDER BY `id` DESC LIMIT 0, $amount";
+        $sql = "SELECT * FROM `product` WHERE `display` = '$display' ORDER BY `id` DESC LIMIT 0, $amount";
         $result = mysqli_query($connection->open(), $sql);
         $data = array();
         while ($row = mysqli_fetch_assoc($result)) {
@@ -43,9 +43,13 @@ class Product
         return $data;
     }
 
-    function get_by_category($id, $display = null) {
+    function get_by_category($display, $id) {
         $connection = new Connection;
-        $sql = "SELECT * FROM `category_and_product` WHERE `category_id` = '$id'";
+        $sql = "SELECT `product_id`, `category_id` `display` 
+                FROM `category_and_product` 
+                JOIN `product` ON `id` = `product_id` 
+                WHERE `category_id` = '$id' 
+                AND `display` = '$display'";
         $result = mysqli_query($connection->open(), $sql);
         $data = array();
         while ($row = mysqli_fetch_assoc($result)) {
@@ -55,9 +59,9 @@ class Product
         return $data;
     }
 
-    function get_all() {
+    function get_all($display) {
         $connection = new Connection;
-        $sql = "SELECT * FROM `product`";
+        $sql = "SELECT * FROM `product` WHERE `display` = '$display'";
         $result = mysqli_query($connection->open(), $sql);
         $data = array();
         while ($row = mysqli_fetch_assoc($result)) {
@@ -66,7 +70,7 @@ class Product
         $connection->close();
         return $data;
     }
-
+    
     function insert()
     {
         $connection = new Connection;

@@ -4,6 +4,16 @@ $color-link: #003cffcc;
 $opacity-button: 0.7;
 $transition: all 0.2s ease;
 
+@mixin keyframes($name) {
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+@mixin animate($animation, $duration, $method, $times) {
+    animation: $animation $duration $method $times;
+}
+
 .disclaimer {
     display: none;
     width: 0;
@@ -39,6 +49,11 @@ body {
     &.disabled-scrollbar {
         overflow: hidden;
     }
+}
+
+.app {
+    position: relative;
+    inset: 0;
 }
 
 .backdrop {
@@ -701,6 +716,135 @@ body {
     }
 }
 
+.sign {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+
+    &-margin {
+        margin-bottom: 16px;
+    }
+
+    &-in,
+    &-up {
+        grid-column: 2 / 5;
+    }
+
+    &-list {
+        border-top: 1px solid $color-silver;
+        border-left: 1px solid $color-silver;
+
+    }
+
+    &-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid $color-silver;
+        border-right: 1px solid $color-silver;
+
+        &>label {
+            min-width: 220px;
+            border-right: 1px solid $color-silver;
+            padding: 16px;
+        }
+
+        &>input {
+            width: 100%;
+            padding: 8px;
+            outline: none;
+            border: none;
+        }
+    }
+
+    &-control {
+        display: flex;
+        justify-content: end;
+        width: 100%;
+
+        &>button {
+            padding: 16px;
+            background-color: $color-header;
+            color: white;
+            border: none;
+            outline: none;
+
+            &:hover {
+                opacity: $opacity-button;
+            }
+        }
+
+        &>a {
+            &:hover {
+                color: $color-link;
+            }
+        }
+    }
+
+}
+
+.notification {
+    position: fixed;
+    width: 320px;
+    padding: 16px;
+    bottom: 16px;
+    right: 16px;
+    background-color: $color-header;
+    color: $color-silver;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.success {
+        background-color: $color-header;
+    }
+
+    &.fail {
+        background-color: black;
+    }
+
+    &.fade {
+        @include keyframes(fade) {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+        }
+
+        @include animate(fade, 1s, linear, 1);
+    }
+
+    &.none {
+        display: none;
+    }
+
+    @include keyframes(appear) {
+        0% {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+
+        50% {
+            opacity: 0.5;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @include animate(appear, 1s, linear, 1);
+}
+
 @media screen and (max-width: 576px) {
     .app {
         position: relative;
@@ -1003,6 +1147,105 @@ body {
     .order {
         padding: 8px;
     }
+
+    .sign {
+        grid-template-columns: repeat(1, 1fr);
+
+        &-margin {
+            margin-bottom: 8px;
+        }
+
+        &-in,
+        &-up {
+            grid-column: 1;
+        }
+
+        &-list {}
+
+        &-item {
+            flex-direction: column;
+
+            &>label {
+                width: 100%;
+                border-right: unset;
+                padding: 8px;
+            }
+
+            &>input {}
+        }
+
+        &-control {
+            &>button {
+                margin: 8px;
+                padding: 8px;
+                width: 100%;
+
+                &:hover {}
+            }
+
+            &>a {
+                margin-right: 8px;
+
+                &:hover {}
+            }
+        }
+
+    }
+
+    .notification {
+        width: 100%;
+        padding: 8px;
+        inset: 0;
+        top: unset;
+
+        &.success {
+            background-color: $color-header;
+        }
+
+        &.fail {
+            background-color: black;
+        }
+
+        &.fade {
+            @include keyframes(fade) {
+                0% {
+                    opacity: 1;
+                }
+
+                50% {
+                    opacity: 0.5;
+                }
+
+                100% {
+                    opacity: 0;
+                    transform: translateY(100%);
+                }
+            }
+
+            @include animate(fade, 1s, linear, 1);
+        }
+
+        &.none {
+            display: none;
+        }
+
+        @include keyframes(appear) {
+            0% {
+                opacity: 0;
+                transform: translateY(100%);
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @include animate(appear, 1s, linear, 1);
+    }
 }
 
 @media screen and (min-width: 576px) and (max-width: 768px) {
@@ -1219,6 +1462,50 @@ body {
             grid-template-columns: repeat(3, 1fr);
         }
     }
+
+    .sign {
+        grid-template-columns: repeat(1, 1fr);
+
+        &-margin {
+            margin-bottom: 8px;
+        }
+
+        &-in,
+        &-up {
+            grid-column: 1;
+        }
+
+        &-list {}
+
+        &-item {
+            flex-direction: column;
+
+            &>label {
+                width: 100%;
+                border-right: unset;
+                padding: 8px;
+            }
+
+            &>input {}
+        }
+
+        &-control {
+            &>button {
+                margin: 8px;
+                padding: 8px;
+                width: 100%;
+
+                &:hover {}
+            }
+
+            &>a {
+                margin-right: 8px;
+
+                &:hover {}
+            }
+        }
+
+    }
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px) {
@@ -1232,7 +1519,6 @@ body {
             grid-template-columns: repeat(4, 1fr);
             grid-template-rows: repeat(1, 48px);
 
-            &-menu,
             &-cart,
             &-purchase,
             &-account {
@@ -1240,10 +1526,7 @@ body {
             }
 
             &-menu {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding: 8px;
+                display: none;
             }
 
             &-trademark {

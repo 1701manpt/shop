@@ -51,12 +51,26 @@
                 })
             } catch (e) {}
         })();
+        (function() {
+            try {
+                const u = new URL(location.href)
+                const notification = document.querySelector(".notification")
+                setTimeout(function() {
+                    notification.classList.add("fade")
+                    setTimeout(function() {
+                        notification.classList.add("none")
+                    }, 1000)
+                }, 5000)
+
+            } catch (e) {}
+        })();
     }
 </script>
 <?php
-require "connection.php";
-require "class/category.php";
-require "class/product.php";
+require_once "connection.php";
+require_once "class/category.php";
+require_once "class/product.php";
+require_once "class/customer.php";
 ?>
 <link rel="stylesheet" href="/index.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
@@ -95,7 +109,7 @@ require "class/product.php";
                 <div class="header-main-account-icon">
                     <i class="bi bi-person-circle"></i>
                 </div>
-                <span class="header-main-account-name">Thái Phương Nam</span>
+                <span class="header-main-account-name">Tài khoản</span>
             </a>
             <div class="header-main-menu jsToggleMenu">
                 <div class="header-main-menu-icon">

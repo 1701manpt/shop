@@ -19,7 +19,7 @@
                         $products = new Product();
                         echo '<div class="area-title">' . (new Category)->get($_GET["id"])->get_name() . '</div>';
                         echo '<div class="area-list">';
-                        foreach ($products->get_by_category($_GET["id"]) as $product) {
+                        foreach ($products->get_by_category("block", $_GET["id"]) as $product) {
                             $str = '
                             <a class="product" href="product.php?id=' . $product->get_id() . '">
                             <div class="product-image product-margin">

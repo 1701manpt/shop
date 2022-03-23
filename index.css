@@ -32,6 +32,11 @@ body.disabled-scrollbar {
   overflow: hidden;
 }
 
+.app {
+  position: relative;
+  inset: 0;
+}
+
 .backdrop {
   display: none;
   background-color: rgba(255, 255, 255, 0.1);
@@ -570,6 +575,109 @@ body.disabled-scrollbar {
   border-bottom: 1px solid #f1f1f1;
 }
 
+.sign {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+}
+.sign-margin {
+  margin-bottom: 16px;
+}
+.sign-in, .sign-up {
+  grid-column: 2/5;
+}
+.sign-list {
+  border-top: 1px solid #f1f1f1f1;
+  border-left: 1px solid #f1f1f1f1;
+}
+.sign-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #f1f1f1f1;
+  border-right: 1px solid #f1f1f1f1;
+}
+.sign-item > label {
+  min-width: 220px;
+  border-right: 1px solid #f1f1f1f1;
+  padding: 16px;
+}
+.sign-item > input {
+  width: 100%;
+  padding: 8px;
+  outline: none;
+  border: none;
+}
+.sign-control {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+}
+.sign-control > button {
+  padding: 16px;
+  background-color: #ff4500;
+  color: white;
+  border: none;
+  outline: none;
+}
+.sign-control > button:hover {
+  opacity: 0.7;
+}
+.sign-control > a:hover {
+  color: #003cffcc;
+}
+
+.notification {
+  position: fixed;
+  width: 320px;
+  padding: 16px;
+  bottom: 16px;
+  right: 16px;
+  background-color: #ff4500;
+  color: #f1f1f1f1;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: appear 1s linear 1;
+}
+.notification.success {
+  background-color: #ff4500;
+}
+.notification.fail {
+  background-color: black;
+}
+.notification.fade {
+  animation: fade 1s linear 1;
+}
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+.notification.none {
+  display: none;
+}
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 @media screen and (max-width: 576px) {
   .app {
     position: relative;
@@ -797,6 +905,75 @@ body.disabled-scrollbar {
 .order {
     padding: 8px;
   }
+
+  .sign {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .sign-margin {
+    margin-bottom: 8px;
+  }
+  .sign-in, .sign-up {
+    grid-column: 1;
+  }
+  .sign-item {
+    flex-direction: column;
+  }
+  .sign-item > label {
+    width: 100%;
+    border-right: unset;
+    padding: 8px;
+  }
+  .sign-control > button {
+    margin: 8px;
+    padding: 8px;
+    width: 100%;
+  }
+  .sign-control > a {
+    margin-right: 8px;
+  }
+  .notification {
+    width: 100%;
+    padding: 8px;
+    inset: 0;
+    top: unset;
+    animation: appear 1s linear 1;
+  }
+  .notification.success {
+    background-color: #ff4500;
+  }
+  .notification.fail {
+    background-color: black;
+  }
+  .notification.fade {
+    animation: fade 1s linear 1;
+  }
+  @keyframes fade {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+  }
+  .notification.none {
+    display: none;
+  }
+  @keyframes appear {
+    0% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 }
 @media screen and (min-width: 576px) and (max-width: 768px) {
   .app {
@@ -959,6 +1136,32 @@ body.disabled-scrollbar {
   .cart-list {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  .sign {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .sign-margin {
+    margin-bottom: 8px;
+  }
+  .sign-in, .sign-up {
+    grid-column: 1;
+  }
+  .sign-item {
+    flex-direction: column;
+  }
+  .sign-item > label {
+    width: 100%;
+    border-right: unset;
+    padding: 8px;
+  }
+  .sign-control > button {
+    margin: 8px;
+    padding: 8px;
+    width: 100%;
+  }
+  .sign-control > a {
+    margin-right: 8px;
+  }
 }
 @media screen and (min-width: 768px) and (max-width: 992px) {
   .header {
@@ -971,14 +1174,11 @@ body.disabled-scrollbar {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(1, 48px);
   }
-  .header-main-menu, .header-main-cart, .header-main-purchase, .header-main-account {
+  .header-main-cart, .header-main-purchase, .header-main-account {
     font-size: 1.5em;
   }
   .header-main-menu {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 8px;
+    display: none;
   }
   .header-main-trademark {
     grid-column: 1/2;

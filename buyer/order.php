@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,11 +11,15 @@
     <title>Đặt hàng | Nghị Quân Shop</title>
 </head>
 
+<?php
+require_once "check_account.php";
+?>
+
 <body>
     <div class="app">
         <?php require "../header.php"; ?>
         <div class="body">
-            
+
         </div>
     </div>
 </body>

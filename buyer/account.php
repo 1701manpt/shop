@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +10,10 @@
     <title>Tài khoản | Nghị Quân Shop</title>
 </head>
 
+<?php
+require_once "check_account.php";
+?>
+
 <body>
     <div class="app">
         <?php
@@ -17,10 +22,11 @@
         <div class="body">
             <div class="body-title">Tài khoản</div>
             <div class="body-content">
-                
+                <a href="sign_out.php"><button>Đăng xuất</button></a>
             </div>
         </div>
     </div>
+
 </body>
 
 </html>
