@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="./icon/shop.ico" type="image/x-icon">
     <title>Trang chủ | Nghị Quân Shop</title>
 
 </head>
@@ -28,12 +27,12 @@
                     $categories = new Category;
                     foreach ($categories->get_limit("block", 10) as $category) {
                         $str = '
-                        <a class="category" href="category.php?id=' . $category->get_id() . '">
+                        <a class="category" href="category.php?id=' . $category->__get("id") . '">
                         <div class="category-image category-margin">
                             <img src="' . $category->get_image_avatar() . '" alt="">
                         </div>
                         <div class="category-name category-margin">
-                        ' . $category->get_name() . '
+                        ' . $category->__get("name") . '
                         </div>
                         </a>
                         ';
@@ -53,18 +52,18 @@
                 </div>
                 <div class="area-list">
                     <?php
-                    $products = new Product;
+                    $products = new Product([]);
                     foreach ($products->get_newest('block', 10) as $product) {
                         $str = '
-                        <a class="product" href="product.php?id=' . $product->get_id() . '">
+                        <a class="product" href="product.php?id=' . $product->__get("id") . '">
                         <div class="product-image product-margin">
                             <img src="https://cf.shopee.vn/file/d260c6a682f800b56838f6e21f8d2e40" alt="">
                         </div>
                         <div class="product-name product-margin">
-                            ' . $product->get_name() . '
+                            ' . $product->__get("name") . '
                         </div>
                         <div class="product-price product-margin">
-                            ' . $product->get_price() . ' ₫
+                            ' . $product->__get("price") . ' ₫
                         </div>
                         </a>
                         ';
@@ -81,26 +80,26 @@
             $categories = new Category;
             foreach ($categories->get_all("block") as $category) {
                 $str = null;
-                $products = new Product;
-                foreach ($products->get_by_category("block", $category->get_id()) as $product) {
+                $products = new Product([]);
+                foreach ($products->get_by_category("block", $category->__get("id")) as $product) {
                     $str = '
-                    <a class="product" href="/product.php?id=' . $product->get_id() . '">
+                    <a class="product" href="/product.php?id=' . $product->__get("id") . '">
                     <div class="product-image product-margin">
                         <img src="https://cdn.tgdd.vn/Products/Images/42/261888/realme-c35-GREEN-thumb-600x600.jpg" alt="">
                     </div>
                     <div class="product-name product-margin">
-                        ' . $product->get_name() . '
+                        ' . $product->__get("name") . '
                     </div>
                     <div class="product-price product-margin">
-                        ' . $product->get_price() . '
+                        ' . $product->__get("price") . '
                     </div>
                     </a>
                     ';
                 }
                 $str1 = '
-                <div class="area" id="category_' . $category->get_id() . '">
+                <div class="area" id="category_' . $category->__get("id") . '">
                 <div class="area-title">
-                    ' . $category->get_name() . '
+                    ' . $category->__get("name") . '
                 </div>
                 <div class="area-list">
                     ' . $str . '

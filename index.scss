@@ -790,7 +790,7 @@ body {
     bottom: 16px;
     right: 16px;
     background-color: $color-header;
-    color: $color-silver;
+    color: white;
     text-transform: uppercase;
     display: flex;
     justify-content: center;
@@ -1184,6 +1184,7 @@ body {
             }
 
             &>a {
+                width: fit-content;
                 margin-right: 8px;
 
                 &:hover {}
@@ -1197,6 +1198,7 @@ body {
         padding: 8px;
         inset: 0;
         top: unset;
+        color: white;
 
         &.success {
             background-color: $color-header;

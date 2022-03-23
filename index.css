@@ -634,7 +634,7 @@ body.disabled-scrollbar {
   bottom: 16px;
   right: 16px;
   background-color: #ff4500;
-  color: #f1f1f1f1;
+  color: white;
   text-transform: uppercase;
   display: flex;
   justify-content: center;
@@ -929,6 +929,7 @@ body.disabled-scrollbar {
     width: 100%;
   }
   .sign-control > a {
+    width: fit-content;
     margin-right: 8px;
   }
   .notification {
@@ -936,6 +937,7 @@ body.disabled-scrollbar {
     padding: 8px;
     inset: 0;
     top: unset;
+    color: white;
     animation: appear 1s linear 1;
   }
   .notification.success {

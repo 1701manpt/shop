@@ -16,6 +16,22 @@ $sp-32: $sp-16 * 2;
 
 $sp-top: 50px;
 
+@mixin keyframes($name) {
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+@mixin animate($animation, $duration, $method, $times) {
+    animation: $animation $duration $method $times;
+}
+
+.disclaimer {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
 .app {
     width: 100vw;
     height: 100vh;
@@ -263,6 +279,7 @@ $sp-aside: 280px;
     &-col {
         padding: 8px;
         border: 1px solid #E9E9E9;
+
         &.--key {
             // border: 1px solid #E9E9E9;
         }
@@ -279,14 +296,23 @@ $sp-aside: 280px;
     padding: $sp-32;
     overflow-y: auto;
     transform: translateX(100%);
-    opacity: 0.75;
-    // transition: all 0.5s ease;
+    opacity: 0;
+    transition: all 0.5s ease;
 
     &--active {
-        box-shadow: 0 0 $sp-4 1px black;
-        transform: translateX(0%);
-        // transition: all 0.5s ease;
-        opacity: unset;
+        box-shadow: 0 0 $sp-4 1px #f1f1f1;
+        transform: translateX(0);
+        opacity: 1;
+        transition: all 0.5s ease;
+
+        // @include keyframes(appear) {
+        //     0% {
+        //         opacity: 0;
+        //         transform: translateX(100%);
+        //     }
+        // }
+
+        // @include animate(appear, 0.5, linear, 1);
     }
 
     &-icon-close {

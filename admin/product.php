@@ -41,20 +41,44 @@
                     </div>
                     <div class="item-content">
                         <table class="js-table table --product">
-                            <!-- <tr>
-                                <th><input type="checkbox" name="" id=""></th>
-                                <th>STT</th>
-                                <th>ID</th>
-                                <th>Tên sản phẩm</th>
-                                <th>Giá nhập về</th>
-                                <th>Giá niêm yết</th>
-                                <th>Giá đã giảm từ CTKM</th>
-                                <th>Mô tả</th>
-                                <th>Loại sản phẩm (ID)</th>
-                                <th>Các thuộc tính sản phẩm</th>
-                                <th>Các danh mục mà sản phẩm thuộc</th>
-                                <th></th>
-                            </tr> -->
+                            <tr class="table-row --key">
+                                <th class="table-col --key"><input type="checkbox" name="" id=""></th>
+                                <th class="table-col --key">STT</th>
+                                <th class="table-col --key">ID</th>
+                                <th class="table-col --key">Tên sản phẩm</th>
+                                <th class="table-col --key">Giá mua về</th>
+                                <th class="table-col --key">Giá bán ra</th>
+                                <th class="table-col --key">Giá khuyến mãi</th>
+                                <th class="table-col --key">Mô tả</th>
+                                <th class="table-col --key">Loại sản phẩm (ID)</th>
+                                <th class="table-col --key">Các thuộc tính sản phẩm</th>
+                                <th class="table-col --key">Các danh mục mà sản phẩm thuộc</th>
+                                <th class="table-col --key">Hiển thị</th>
+                            </tr>
+                            <?php
+                            require_once "../connection.php";
+                            require_once "../class/product.php";
+                            $products = (new Product([]))->get_all();
+                            foreach ($products as $key => $product) {
+                                $tr = '
+                                        <tr class="table-row">
+                                            <td class="table-col"><input type="checkbox" name="" id=""></td>
+                                            <td class="table-col">' . $key . '</td>
+                                            <td class="table-col">' . $product->__get("id") . '</td>
+                                            <td class="table-col">' . $product->__get("name") . '</td>
+                                            <td class="table-col">' . $product->__get("price") . '</td>
+                                            <td class="table-col">//</td>
+                                            <td class="table-col">' . $product->__get("price_sale") . '</td>
+                                            <td class="table-col">' . $product->__get("description") . '</td>
+                                            <td class="table-col">' . $product->__get("type_id") . '</td>
+                                            <td class="table-col">//</td>
+                                            <td class="table-col">//</td>
+                                            <td class="table-col">' . $product->__get("display") . '</td>
+                                        </tr>
+                                    ';
+                                echo $tr;
+                            }
+                            ?>
                         </table>
                     </div>
                 </div>

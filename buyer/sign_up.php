@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../icon/shop.ico" type="image/x-icon">
     <title>Đăng ký | Nghị Quân Shop</title>
 </head>
 
@@ -36,7 +35,7 @@
                             </div>
                             <div class="sign-item">
                                 <label for="password">Mật khẩu</label>
-                                <input type="password" id="password" name="password" placeholder="Nên nhập mật khẩu có độ dài lớn hơn 8 ký tự (chữ, số, ký tự đặc biệt)" required>
+                                <input type="password" id="password" name="password" placeholder="Mật khẩu dài hơn 8 ký tự, không chứa khoảng trắng" required>
                             </div>
                             <div class="sign-item">
                                 <label for="repassword">Nhập lại</label>

@@ -131,1305 +131,1305 @@
     })
 })();
 
-(function () {
-    class Table {
-        constructor(init, keys, values) {
-            this.page = document.querySelector(init.page)
-            this.table = this.page.querySelector(init.table)
-            this.createRowKey(keys)
-            this.createRows(values, keys)
-            this.handleRemove()
-            this.handleCreate(values.length, keys)
-            this.mappingRow()
-            this.handleUpdate()
-            // console.log(this.page, this.table)
-        }
+// (function () {
+//     class Table {
+//         constructor(init, keys, values) {
+//             this.page = document.querySelector(init.page)
+//             this.table = this.page.querySelector(init.table)
+//             this.createRowKey(keys)
+//             this.createRows(values, keys)
+//             this.handleRemove()
+//             this.handleCreate(values.length, keys)
+//             this.mappingRow()
+//             this.handleUpdate()
+//             // console.log(this.page, this.table)
+//         }
 
-        createCol(obj) {
-            const col = document.createElement("th")
-            col.classList.add("table-col", "--key")
-            col.innerHTML = obj.html
-            col.setAttribute("name", obj.name)
-            const row = this.table.querySelector(".table-row.--key")
-            row.appendChild(col)
-        }
+//         createCol(obj) {
+//             const col = document.createElement("th")
+//             col.classList.add("table-col", "--key")
+//             col.innerHTML = obj.html
+//             col.setAttribute("name", obj.name)
+//             const row = this.table.querySelector(".table-row.--key")
+//             row.appendChild(col)
+//         }
 
-        createCols(arr) {
-            arr.forEach(obj => {
-                this.createCol(obj)
-            })
-        }
+//         createCols(arr) {
+//             arr.forEach(obj => {
+//                 this.createCol(obj)
+//             })
+//         }
 
-        createRowKey(arr) {
-            const row = document.createElement("tr")
-            row.classList.add("table-row", "--key")
-            this.table.appendChild(row)
-            this.createCols(arr)
+//         createRowKey(arr) {
+//             const row = document.createElement("tr")
+//             row.classList.add("table-row", "--key")
+//             this.table.appendChild(row)
+//             this.createCols(arr)
 
-        }
+//         }
 
-        row(obj, index, keys) {
-            var newObj
-            keys.forEach((key) => {
-                if (key.const != null) {
-                    newObj = Object.defineProperty(obj, key.name, {
-                        enumerable: true,
-                        configurable: true,
-                        writable: true,
-                        value: key.const
-                    })
-                }
-            })
-            newObj = Object.defineProperty(newObj, "stt", {
-                enumerable: true,
-                configurable: true,
-                writable: true,
-                value: index
-            })
-            // console.log(obj)
-            return newObj
-        }
+//         row(obj, index, keys) {
+//             var newObj
+//             keys.forEach((key) => {
+//                 if (key.const != null) {
+//                     newObj = Object.defineProperty(obj, key.name, {
+//                         enumerable: true,
+//                         configurable: true,
+//                         writable: true,
+//                         value: key.const
+//                     })
+//                 }
+//             })
+//             newObj = Object.defineProperty(newObj, "stt", {
+//                 enumerable: true,
+//                 configurable: true,
+//                 writable: true,
+//                 value: index
+//             })
+//             // console.log(obj)
+//             return newObj
+//         }
 
-        createRow(o, index, keys) {
-            // console.log(o)
-            const obj = this.row(o, index, keys)
-            // console.log(obj)
-            const row = document.createElement("tr")
-            row.classList.add("table-row")
-            row.id = "--" + obj.id
-            keys.forEach((key) => {
-                Object.entries(obj).forEach((arr) => {
-                    if (key.name == arr[0]) {
-                        const cell = document.createElement("td")
-                        cell.classList.add("table-col")
-                        cell.setAttribute("name", key.name)
-                        cell.innerHTML = arr[1]
-                        row.appendChild(cell)
-                        // console.log(arr)
-                    }
-                })
-            })
-            this.table.appendChild(row)
-        }
+//         createRow(o, index, keys) {
+//             // console.log(o)
+//             const obj = this.row(o, index, keys)
+//             // console.log(obj)
+//             const row = document.createElement("tr")
+//             row.classList.add("table-row")
+//             row.id = "--" + obj.id
+//             keys.forEach((key) => {
+//                 Object.entries(obj).forEach((arr) => {
+//                     if (key.name == arr[0]) {
+//                         const cell = document.createElement("td")
+//                         cell.classList.add("table-col")
+//                         cell.setAttribute("name", key.name)
+//                         cell.innerHTML = arr[1]
+//                         row.appendChild(cell)
+//                         // console.log(arr)
+//                     }
+//                 })
+//             })
+//             this.table.appendChild(row)
+//         }
 
-        createRows(arr, keys) {
-            arr.forEach((row, index) => {
-                this.createRow(row, index, keys)
-            })
-        }
+//         createRows(arr, keys) {
+//             arr.forEach((row, index) => {
+//                 this.createRow(row, index, keys)
+//             })
+//         }
 
-        removeRow(id) {
-            const row = this.page.querySelector('#' + id)
-            this.table.removeChild(row)
-        }
+//         removeRow(id) {
+//             const row = this.page.querySelector('#' + id)
+//             this.table.removeChild(row)
+//         }
 
-        removeRows(arr) {
-            arr.forEach((id, index) => {
-                this.removeRow(id)
-            })
-        }
+//         removeRows(arr) {
+//             arr.forEach((id, index) => {
+//                 this.removeRow(id)
+//             })
+//         }
 
-        handleRemove() {
-            const remove = this.page.querySelector(".js-remove-btn")
-            remove.addEventListener("click", () => {
-                const removeArr = this.table.querySelectorAll("input[name=remove]")
-                let data = []
-                removeArr.forEach((checkbox) => {
-                    if (checkbox.checked == true) {
-                        // console.log((checkbox.parentNode).parentNode.id)
-                        data.push((checkbox.parentNode).parentNode.id)
-                    }
-                })
-                if (data.length <= 0) {
-                    alert("Không có mục nào được chọn!")
-                }
-                if (data.length >= 1 && confirm("Bạn chắc chắn muốn xóa " + data.length + " khách hàng ?")) {
-                    this.removeRows(data)
-                    data = []
-                    const checkAll = this.table.querySelector(".js-remove-check-all")
-                    checkAll.checked = false
-                    alert("Thành công!!!")
-                } else {
+//         handleRemove() {
+//             const remove = this.page.querySelector(".js-remove-btn")
+//             remove.addEventListener("click", () => {
+//                 const removeArr = this.table.querySelectorAll("input[name=remove]")
+//                 let data = []
+//                 removeArr.forEach((checkbox) => {
+//                     if (checkbox.checked == true) {
+//                         // console.log((checkbox.parentNode).parentNode.id)
+//                         data.push((checkbox.parentNode).parentNode.id)
+//                     }
+//                 })
+//                 if (data.length <= 0) {
+//                     alert("Không có mục nào được chọn!")
+//                 }
+//                 if (data.length >= 1 && confirm("Bạn chắc chắn muốn xóa " + data.length + " khách hàng ?")) {
+//                     this.removeRows(data)
+//                     data = []
+//                     const checkAll = this.table.querySelector(".js-remove-check-all")
+//                     checkAll.checked = false
+//                     alert("Thành công!!!")
+//                 } else {
 
-                }
-            })
-        }
+//                 }
+//             })
+//         }
 
-        handleCreate(index, keys) {
-            const form = this.page.querySelector(".js-create-form")
-            const finish = form.querySelector(".js-finish-btn")
-            form.addEventListener("submit", (e) => {
-                e.preventDefault()
-            })
-            finish.addEventListener("click", () => {
-                const data = new FormData(form)
-                const object = Object.fromEntries(data)
-                this.createRow(object, index, keys)
-                alert("Thành công!!!")
-                this.mappingRow()
-            })
-        }
+//         handleCreate(index, keys) {
+//             const form = this.page.querySelector(".js-create-form")
+//             const finish = form.querySelector(".js-finish-btn")
+//             form.addEventListener("submit", (e) => {
+//                 e.preventDefault()
+//             })
+//             finish.addEventListener("click", () => {
+//                 const data = new FormData(form)
+//                 const object = Object.fromEntries(data)
+//                 this.createRow(object, index, keys)
+//                 alert("Thành công!!!")
+//                 this.mappingRow()
+//             })
+//         }
 
-        updateRow(obj) {
-            const row = this.table.querySelector("#--" + obj.id)
-            const cells = row.childNodes
-            cells.forEach((cell, index) => {
-                Object.entries(obj).forEach((arr, index) => {
-                    if (cell.getAttribute("name") == arr[0]) {
-                        cell.innerHTML = arr[1]
-                    }
-                })
-            })
-        }
+//         updateRow(obj) {
+//             const row = this.table.querySelector("#--" + obj.id)
+//             const cells = row.childNodes
+//             cells.forEach((cell, index) => {
+//                 Object.entries(obj).forEach((arr, index) => {
+//                     if (cell.getAttribute("name") == arr[0]) {
+//                         cell.innerHTML = arr[1]
+//                     }
+//                 })
+//             })
+//         }
 
-        mappingRow() {
-            const opens = this.table.querySelectorAll(".js-update-btn")
-            opens.forEach((open) => {
-                open.addEventListener("click", () => {
-                    const row = open.parentNode.parentNode
-                    const cells = row.childNodes
-                    const form = this.page.querySelector(".js-update-form")
-                    cells.forEach((cell, index) => {
-                        try {
-                            const name = cell.getAttribute("name")
-                            form.querySelector("[name=" + name + "]").value = cell.textContent
-                        }
-                        catch (e) { }
-                    })
-                })
-            })
-        }
+//         mappingRow() {
+//             const opens = this.table.querySelectorAll(".js-update-btn")
+//             opens.forEach((open) => {
+//                 open.addEventListener("click", () => {
+//                     const row = open.parentNode.parentNode
+//                     const cells = row.childNodes
+//                     const form = this.page.querySelector(".js-update-form")
+//                     cells.forEach((cell, index) => {
+//                         try {
+//                             const name = cell.getAttribute("name")
+//                             form.querySelector("[name=" + name + "]").value = cell.textContent
+//                         }
+//                         catch (e) { }
+//                     })
+//                 })
+//             })
+//         }
 
-        handleUpdate() {
-            const form = this.page.querySelector(".js-update-form")
-            const finish = form.querySelector(".js-finish-btn")
-            form.addEventListener("submit", (e) => {
-                e.preventDefault()
-            })
-            finish.addEventListener("click", () => {
-                const data = new FormData(form)
-                this.updateRow(Object.fromEntries(data))
-                alert("Thành công!!!")
-            })
-        }
+//         handleUpdate() {
+//             const form = this.page.querySelector(".js-update-form")
+//             const finish = form.querySelector(".js-finish-btn")
+//             form.addEventListener("submit", (e) => {
+//                 e.preventDefault()
+//             })
+//             finish.addEventListener("click", () => {
+//                 const data = new FormData(form)
+//                 this.updateRow(Object.fromEntries(data))
+//                 alert("Thành công!!!")
+//             })
+//         }
 
-    }
-    function categoryTable() {
-        const init = {
-            page: ".app-body.category",
-            table: ".table.--category",
-            type: "normal"
-        }
-        const keys = [
-            {
-                name: "check-all",
-                html: '<input type="checkbox" class="js-remove-check-all">',
-                const: '<input type="checkbox" name="remove">',
-            },
-            {
-                name: "stt",
-                html: "#",
-                const: null,
-            },
-            {
-                name: "id",
-                html: "Id",
-                const: null,
-            },
-            {
-                name: "name",
-                html: "Tên danh mục",
-                const: null,
-            },
-            {
-                name: "description",
-                html: "Mô tả",
-                const: null,
-            },
-            {
-                name: "detail",
-                html: "Chi tiết",
-                const: '<i class="bi bi-ticket-detailed">',
-            },
-            {
-                name: "update",
-                html: "",
-                const: '<i class="bi bi-pencil-square js-update-btn"></i>',
-            },
-        ]
-        const rows = [
-            {
-                id: 242,
-                name: "Mùa hè sôi nổi",
-                description: "nóng nực thì mua hàng",
-            },
-            {
-                id: 22,
-                name: "Mùa xuân",
-                description: "nóng dsddsdnực thì mua hàng",
-            },
-            {
-                id: 11,
-                name: "Mùa đông",
-                description: "đé",
-            },
-        ]
-        new Table(init, keys, rows)
-    }
-    function customerTable() {
-        const init = {
-            page: ".app-body.customer",
-            table: ".table.--customer",
-            type: "normal"
-        }
-        const keys = [
-            {
-                name: "check-all",
-                html: '<input type="checkbox" class="js-remove-check-all">',
-                const: '<input type="checkbox" name="remove">',
-            },
-            {
-                name: "stt",
-                html: "#",
-                const: null,
-            },
-            {
-                name: "id",
-                html: "Id",
-                const: null,
-            },
-            {
-                name: "name",
-                html: "Họ và tên",
-                const: null,
-            },
-            {
-                name: "gender",
-                html: "Giới tính",
-                const: null,
-            },
-            {
-                name: "date_birth",
-                html: "Ngày sinh",
-                const: null,
-            },
-            {
-                name: "address",
-                html: "Địa chỉ",
-                const: null,
-            },
-            {
-                name: "email",
-                html: "Email",
-                const: null,
-            },
-            {
-                name: "password",
-                html: "Mật khẩu",
-                const: "********",
-            },
-            {
-                name: "date_create",
-                html: "Ngày tạo",
-                const: null,
-            },
-            {
-                name: "state",
-                html: "Trạng thái",
-                const: null,
-            },
-            {
-                name: "detail",
-                html: "Chi tiết",
-                const: '<i class="bi bi-ticket-detailed"></i>',
-            },
-            {
-                name: "update",
-                html: "",
-                const: '<i class="bi bi-pencil-square js-update-btn"></i>',
-            },
-        ]
-        const customers = [
-            {
-                id: 32,
-                name: "Thái Phương Nam",
-                gender: "Nam",
-                date_birth: "2001-07-10",
-                address: "Bình Định",
-                email: "thaiphuongnam1071@gmail.com",
-                password: null,
-                date_create: "2022-01-24",
-                state: "normal",
-            },
-            {
-                id: 42,
-                name: "Nguyễn Văn A",
-                gender: "Nam",
-                date_birth: "2001-07-20",
-                address: "Thành Phố Hồ Chí Minh",
-                email: "vana@gmail.com",
-                password: null,
-                date_create: "2021-02-20",
-                state: "normal",
-            },
-            {
-                id: 521,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-            },
-            {
-                id: 522,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-            },
-            {
-                id: 523,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-            },
-            {
-                id: 524,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-            },
-            {
-                id: 525,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-            },
-            {
-                id: 526,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-            },
-            {
-                id: 527,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-            },
-            {
-                id: 528,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-            },
-            {
-                id: 529,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-            },
-            {
-                id: 5210,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-            },
-            {
-                id: 5211,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-            },
-            {
-                id: 5212,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-            },
-            {
-                id: 5213,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-            },
-            {
-                id: 5214,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-            },
-        ]
-        new Table(init, keys, customers)
-    }
-    function staffTable() {
-        const init = {
-            page: ".app-body.staff",
-            table: ".table.--staff",
-            type: "normal"
-        }
-        const keys = [
-            {
-                name: "check-all",
-                html: '<input type="checkbox" class="js-remove-check-all">',
-                const: '<input type="checkbox" name="remove">',
-            },
-            {
-                name: "stt",
-                html: "#",
-                const: null,
-            },
-            {
-                name: "id",
-                html: "Id",
-                const: null,
-            },
-            {
-                name: "name",
-                html: "Họ và tên",
-                const: null,
-            },
-            {
-                name: "gender",
-                html: "Giới tính",
-                const: null,
-            },
-            {
-                name: "gender",
-                html: "Giới tính",
-                const: null,
-            },
-            {
-                name: "address",
-                html: "Địa chỉ",
-                const: null,
-            },
-            {
-                name: "email",
-                html: "Email",
-                const: null,
-            },
-            {
-                name: "password",
-                html: "Mật khẩu",
-                const: null,
-            },
-            {
-                name: "date_create",
-                html: "Ngày tạo",
-                const: null,
-            },
-            {
-                name: "state",
-                html: "Trạng thái",
-                const: null,
-            },
-            {
-                name: "role_id",
-                html: "Chức vụ (ID)",
-                const: null,
-            },
-            {
-                name: "update",
-                html: "",
-                const: '<i class="bi bi-pencil-square js-update-btn"></i>',
-            },
-        ]
-        const staffs = [
-            {
-                id: 32,
-                name: "Thái Phương Nam",
-                gender: "Nam",
-                date_birth: "2001-07-10",
-                address: "Bình Định",
-                email: "thaiphuongnam1071@gmail.com",
-                password: null,
-                date_create: "2022-01-24",
-                state: "normal",
-                role_id: 32,
-            },
-            {
-                id: 42,
-                name: "Nguyễn Văn A",
-                gender: "Nam",
-                date_birth: "2001-07-20",
-                address: "Thành Phố Hồ Chí Minh",
-                email: "vana@gmail.com",
-                password: null,
-                date_create: "2021-02-20",
-                state: "normal",
-                role_id: 32,
-            },
-            {
-                id: 521,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-                role_id: 32,
-            },
-            {
-                id: 522,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-                role_id: 32,
-            },
-            {
-                id: 523,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-                role_id: 32,
-            },
-            {
-                id: 524,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-                role_id: 32,
-            },
-            {
-                id: 525,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-                role_id: 32,
-            },
-            {
-                id: 526,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-                role_id: 32,
-            },
-            {
-                id: 527,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-                role_id: 32,
-            },
-            {
-                id: 528,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-                role_id: 32,
-            },
-            {
-                id: 529,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-                role_id: 32,
-            },
-            {
-                id: 5210,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-                role_id: 32,
-            },
-            {
-                id: 5211,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-                role_id: 32,
-            },
-            {
-                id: 5212,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-                role_id: 32,
-            },
-            {
-                id: 5213,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-                role_id: 32,
-            },
-            {
-                id: 5214,
-                name: "Người dùng 1",
-                gender: "Nữ",
-                date_birth: "2004-02-01",
-                address: "Vũng Tàu",
-                email: "ttpn1@gmail.com",
-                password: null,
-                date_create: "2022-05-10",
-                state: "locked",
-                role_id: 32,
-            },
-        ]
-        new Table(init, keys, staffs)
-    }
-    function typeTable() {
-        const init = {
-            page: ".app-body.type",
-            table: ".table.--type",
-            type: "normal"
-        }
-        const keys = [
-            {
-                name: "check-all",
-                html: '<input type="checkbox" class="js-remove-check-all">',
-                const: '<input type="checkbox" name="remove">',
-            },
-            {
-                name: "stt",
-                html: "#",
-                const: null,
-            },
-            {
-                name: "id",
-                html: "Id",
-                const: null,
-            },
-            {
-                name: "name",
-                html: "Tên loại sản phẩm",
-                const: null,
-            },
-            {
-                name: "description",
-                html: "Mô tả",
-                const: null,
-            },
-            {
-                name: "detail",
-                html: "Chi tiết",
-                const: '<i class="bi bi-ticket-detailed">',
-            },
-            {
-                name: "update",
-                html: "",
-                const: '<i class="bi bi-pencil-square js-update-btn"></i>',
-            },
-        ]
-        const types = [
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-        ]
-        new Table(init, keys, types)
-    }
-    function productTable() {
-        const init = {
-            page: ".app-body.product",
-            table: ".table.--product",
-            type: "normal"
-        }
-        const keys = [
-            {
-                name: "check-all",
-                html: '<input type="checkbox" class="js-remove-check-all">',
-                const: '<input type="checkbox" name="remove">',
-            },
-            {
-                name: "stt",
-                html: "#",
-                const: null,
-            },
-            {
-                name: "id",
-                html: "Id",
-                const: null,
-            },
-            {
-                name: "name",
-                html: "Tên loại sản phẩm",
-                const: null,
-            },
-            {
-                name: "description",
-                html: "Mô tả",
-                const: null,
-            },
-            {
-                name: "detail",
-                html: "Chi tiết",
-                const: '<i class="bi bi-ticket-detailed">',
-            },
-            {
-                name: "update",
-                html: "",
-                const: '<i class="bi bi-pencil-square js-update-btn"></i>',
-            },
-        ]
-        const types = [
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-        ]
-        new Table(init, keys, types)
-    }
-    function orderTable() {
-        const init = {
-            page: ".app-body.order",
-            table: ".table.--order",
-            type: "normal"
-        }
-        const keys = [
-            {
-                name: "check-all",
-                html: '<input type="checkbox" class="js-remove-check-all">',
-                const: '<input type="checkbox" name="remove">',
-            },
-            {
-                name: "stt",
-                html: "#",
-                const: null,
-            },
-            {
-                name: "id",
-                html: "Id",
-                const: null,
-            },
-            {
-                name: "name",
-                html: "Tên loại sản phẩm",
-                const: null,
-            },
-            {
-                name: "description",
-                html: "Mô tả",
-                const: null,
-            },
-            {
-                name: "detail",
-                html: "Chi tiết",
-                const: '<i class="bi bi-ticket-detailed">',
-            },
-            {
-                name: "update",
-                html: "",
-                const: '<i class="bi bi-pencil-square js-update-btn"></i>',
-            },
-        ]
-        const types = [
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-        ]
-        new Table(init, keys, types)
-    }
-    function saleOffTable() {
-        const init = {
-            page: ".app-body.sale_off",
-            table: ".table.--sale_off",
-            type: "normal"
-        }
-        const keys = [
-            {
-                name: "check-all",
-                html: '<input type="checkbox" class="js-remove-check-all">',
-                const: '<input type="checkbox" name="remove">',
-            },
-            {
-                name: "stt",
-                html: "#",
-                const: null,
-            },
-            {
-                name: "id",
-                html: "Id",
-                const: null,
-            },
-            {
-                name: "name",
-                html: "Tên loại sản phẩm",
-                const: null,
-            },
-            {
-                name: "description",
-                html: "Mô tả",
-                const: null,
-            },
-            {
-                name: "detail",
-                html: "Chi tiết",
-                const: '<i class="bi bi-ticket-detailed">',
-            },
-            {
-                name: "update",
-                html: "",
-                const: '<i class="bi bi-pencil-square js-update-btn"></i>',
-            },
-        ]
-        const types = [
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-        ]
-        new Table(init, keys, types)
-    }
-    function supplierTable() {
-        const init = {
-            page: ".app-body.supplier",
-            table: ".table.--supplier",
-            type: "normal"
-        }
-        const keys = [
-            {
-                name: "check-all",
-                html: '<input type="checkbox" class="js-remove-check-all">',
-                const: '<input type="checkbox" name="remove">',
-            },
-            {
-                name: "stt",
-                html: "#",
-                const: null,
-            },
-            {
-                name: "id",
-                html: "Id",
-                const: null,
-            },
-            {
-                name: "name",
-                html: "Tên loại sản phẩm",
-                const: null,
-            },
-            {
-                name: "description",
-                html: "Mô tả",
-                const: null,
-            },
-            {
-                name: "detail",
-                html: "Chi tiết",
-                const: '<i class="bi bi-ticket-detailed">',
-            },
-            {
-                name: "update",
-                html: "",
-                const: '<i class="bi bi-pencil-square js-update-btn"></i>',
-            },
-        ]
-        const types = [
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-        ]
-        new Table(init, keys, types)
-    }
-    function roleTable() {
-        const init = {
-            page: ".app-body.role",
-            table: ".table.--role",
-            type: "normal"
-        }
-        const keys = [
-            {
-                name: "check-all",
-                html: '<input type="checkbox" class="js-remove-check-all">',
-                const: '<input type="checkbox" name="remove">',
-            },
-            {
-                name: "stt",
-                html: "#",
-                const: null,
-            },
-            {
-                name: "id",
-                html: "Id",
-                const: null,
-            },
-            {
-                name: "name",
-                html: "Tên loại sản phẩm",
-                const: null,
-            },
-            {
-                name: "description",
-                html: "Mô tả",
-                const: null,
-            },
-            {
-                name: "detail",
-                html: "Chi tiết",
-                const: '<i class="bi bi-ticket-detailed">',
-            },
-            {
-                name: "update",
-                html: "",
-                const: '<i class="bi bi-pencil-square js-update-btn"></i>',
-            },
-        ]
-        const types = [
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-            {
-                id: 1,
-                name: "dép",
-                description: "dép để mang",
-            },
-        ]
-        new Table(init, keys, types)
-    }
+//     }
+//     function categoryTable() {
+//         const init = {
+//             page: ".app-body.category",
+//             table: ".table.--category",
+//             type: "normal"
+//         }
+//         const keys = [
+//             {
+//                 name: "check-all",
+//                 html: '<input type="checkbox" class="js-remove-check-all">',
+//                 const: '<input type="checkbox" name="remove">',
+//             },
+//             {
+//                 name: "stt",
+//                 html: "#",
+//                 const: null,
+//             },
+//             {
+//                 name: "id",
+//                 html: "Id",
+//                 const: null,
+//             },
+//             {
+//                 name: "name",
+//                 html: "Tên danh mục",
+//                 const: null,
+//             },
+//             {
+//                 name: "description",
+//                 html: "Mô tả",
+//                 const: null,
+//             },
+//             {
+//                 name: "detail",
+//                 html: "Chi tiết",
+//                 const: '<i class="bi bi-ticket-detailed">',
+//             },
+//             {
+//                 name: "update",
+//                 html: "",
+//                 const: '<i class="bi bi-pencil-square js-update-btn"></i>',
+//             },
+//         ]
+//         const rows = [
+//             {
+//                 id: 242,
+//                 name: "Mùa hè sôi nổi",
+//                 description: "nóng nực thì mua hàng",
+//             },
+//             {
+//                 id: 22,
+//                 name: "Mùa xuân",
+//                 description: "nóng dsddsdnực thì mua hàng",
+//             },
+//             {
+//                 id: 11,
+//                 name: "Mùa đông",
+//                 description: "đé",
+//             },
+//         ]
+//         new Table(init, keys, rows)
+//     }
+//     function customerTable() {
+//         const init = {
+//             page: ".app-body.customer",
+//             table: ".table.--customer",
+//             type: "normal"
+//         }
+//         const keys = [
+//             {
+//                 name: "check-all",
+//                 html: '<input type="checkbox" class="js-remove-check-all">',
+//                 const: '<input type="checkbox" name="remove">',
+//             },
+//             {
+//                 name: "stt",
+//                 html: "#",
+//                 const: null,
+//             },
+//             {
+//                 name: "id",
+//                 html: "Id",
+//                 const: null,
+//             },
+//             {
+//                 name: "name",
+//                 html: "Họ và tên",
+//                 const: null,
+//             },
+//             {
+//                 name: "gender",
+//                 html: "Giới tính",
+//                 const: null,
+//             },
+//             {
+//                 name: "date_birth",
+//                 html: "Ngày sinh",
+//                 const: null,
+//             },
+//             {
+//                 name: "address",
+//                 html: "Địa chỉ",
+//                 const: null,
+//             },
+//             {
+//                 name: "email",
+//                 html: "Email",
+//                 const: null,
+//             },
+//             {
+//                 name: "password",
+//                 html: "Mật khẩu",
+//                 const: "********",
+//             },
+//             {
+//                 name: "date_create",
+//                 html: "Ngày tạo",
+//                 const: null,
+//             },
+//             {
+//                 name: "state",
+//                 html: "Trạng thái",
+//                 const: null,
+//             },
+//             {
+//                 name: "detail",
+//                 html: "Chi tiết",
+//                 const: '<i class="bi bi-ticket-detailed"></i>',
+//             },
+//             {
+//                 name: "update",
+//                 html: "",
+//                 const: '<i class="bi bi-pencil-square js-update-btn"></i>',
+//             },
+//         ]
+//         const customers = [
+//             {
+//                 id: 32,
+//                 name: "Thái Phương Nam",
+//                 gender: "Nam",
+//                 date_birth: "2001-07-10",
+//                 address: "Bình Định",
+//                 email: "thaiphuongnam1071@gmail.com",
+//                 password: null,
+//                 date_create: "2022-01-24",
+//                 state: "normal",
+//             },
+//             {
+//                 id: 42,
+//                 name: "Nguyễn Văn A",
+//                 gender: "Nam",
+//                 date_birth: "2001-07-20",
+//                 address: "Thành Phố Hồ Chí Minh",
+//                 email: "vana@gmail.com",
+//                 password: null,
+//                 date_create: "2021-02-20",
+//                 state: "normal",
+//             },
+//             {
+//                 id: 521,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//             },
+//             {
+//                 id: 522,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//             },
+//             {
+//                 id: 523,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//             },
+//             {
+//                 id: 524,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//             },
+//             {
+//                 id: 525,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//             },
+//             {
+//                 id: 526,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//             },
+//             {
+//                 id: 527,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//             },
+//             {
+//                 id: 528,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//             },
+//             {
+//                 id: 529,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//             },
+//             {
+//                 id: 5210,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//             },
+//             {
+//                 id: 5211,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//             },
+//             {
+//                 id: 5212,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//             },
+//             {
+//                 id: 5213,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//             },
+//             {
+//                 id: 5214,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//             },
+//         ]
+//         new Table(init, keys, customers)
+//     }
+//     function staffTable() {
+//         const init = {
+//             page: ".app-body.staff",
+//             table: ".table.--staff",
+//             type: "normal"
+//         }
+//         const keys = [
+//             {
+//                 name: "check-all",
+//                 html: '<input type="checkbox" class="js-remove-check-all">',
+//                 const: '<input type="checkbox" name="remove">',
+//             },
+//             {
+//                 name: "stt",
+//                 html: "#",
+//                 const: null,
+//             },
+//             {
+//                 name: "id",
+//                 html: "Id",
+//                 const: null,
+//             },
+//             {
+//                 name: "name",
+//                 html: "Họ và tên",
+//                 const: null,
+//             },
+//             {
+//                 name: "gender",
+//                 html: "Giới tính",
+//                 const: null,
+//             },
+//             {
+//                 name: "gender",
+//                 html: "Giới tính",
+//                 const: null,
+//             },
+//             {
+//                 name: "address",
+//                 html: "Địa chỉ",
+//                 const: null,
+//             },
+//             {
+//                 name: "email",
+//                 html: "Email",
+//                 const: null,
+//             },
+//             {
+//                 name: "password",
+//                 html: "Mật khẩu",
+//                 const: null,
+//             },
+//             {
+//                 name: "date_create",
+//                 html: "Ngày tạo",
+//                 const: null,
+//             },
+//             {
+//                 name: "state",
+//                 html: "Trạng thái",
+//                 const: null,
+//             },
+//             {
+//                 name: "role_id",
+//                 html: "Chức vụ (ID)",
+//                 const: null,
+//             },
+//             {
+//                 name: "update",
+//                 html: "",
+//                 const: '<i class="bi bi-pencil-square js-update-btn"></i>',
+//             },
+//         ]
+//         const staffs = [
+//             {
+//                 id: 32,
+//                 name: "Thái Phương Nam",
+//                 gender: "Nam",
+//                 date_birth: "2001-07-10",
+//                 address: "Bình Định",
+//                 email: "thaiphuongnam1071@gmail.com",
+//                 password: null,
+//                 date_create: "2022-01-24",
+//                 state: "normal",
+//                 role_id: 32,
+//             },
+//             {
+//                 id: 42,
+//                 name: "Nguyễn Văn A",
+//                 gender: "Nam",
+//                 date_birth: "2001-07-20",
+//                 address: "Thành Phố Hồ Chí Minh",
+//                 email: "vana@gmail.com",
+//                 password: null,
+//                 date_create: "2021-02-20",
+//                 state: "normal",
+//                 role_id: 32,
+//             },
+//             {
+//                 id: 521,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//                 role_id: 32,
+//             },
+//             {
+//                 id: 522,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//                 role_id: 32,
+//             },
+//             {
+//                 id: 523,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//                 role_id: 32,
+//             },
+//             {
+//                 id: 524,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//                 role_id: 32,
+//             },
+//             {
+//                 id: 525,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//                 role_id: 32,
+//             },
+//             {
+//                 id: 526,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//                 role_id: 32,
+//             },
+//             {
+//                 id: 527,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//                 role_id: 32,
+//             },
+//             {
+//                 id: 528,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//                 role_id: 32,
+//             },
+//             {
+//                 id: 529,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//                 role_id: 32,
+//             },
+//             {
+//                 id: 5210,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//                 role_id: 32,
+//             },
+//             {
+//                 id: 5211,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//                 role_id: 32,
+//             },
+//             {
+//                 id: 5212,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//                 role_id: 32,
+//             },
+//             {
+//                 id: 5213,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//                 role_id: 32,
+//             },
+//             {
+//                 id: 5214,
+//                 name: "Người dùng 1",
+//                 gender: "Nữ",
+//                 date_birth: "2004-02-01",
+//                 address: "Vũng Tàu",
+//                 email: "ttpn1@gmail.com",
+//                 password: null,
+//                 date_create: "2022-05-10",
+//                 state: "locked",
+//                 role_id: 32,
+//             },
+//         ]
+//         new Table(init, keys, staffs)
+//     }
+//     function typeTable() {
+//         const init = {
+//             page: ".app-body.type",
+//             table: ".table.--type",
+//             type: "normal"
+//         }
+//         const keys = [
+//             {
+//                 name: "check-all",
+//                 html: '<input type="checkbox" class="js-remove-check-all">',
+//                 const: '<input type="checkbox" name="remove">',
+//             },
+//             {
+//                 name: "stt",
+//                 html: "#",
+//                 const: null,
+//             },
+//             {
+//                 name: "id",
+//                 html: "Id",
+//                 const: null,
+//             },
+//             {
+//                 name: "name",
+//                 html: "Tên loại sản phẩm",
+//                 const: null,
+//             },
+//             {
+//                 name: "description",
+//                 html: "Mô tả",
+//                 const: null,
+//             },
+//             {
+//                 name: "detail",
+//                 html: "Chi tiết",
+//                 const: '<i class="bi bi-ticket-detailed">',
+//             },
+//             {
+//                 name: "update",
+//                 html: "",
+//                 const: '<i class="bi bi-pencil-square js-update-btn"></i>',
+//             },
+//         ]
+//         const types = [
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//         ]
+//         new Table(init, keys, types)
+//     }
+//     function productTable() {
+//         const init = {
+//             page: ".app-body.product",
+//             table: ".table.--product",
+//             type: "normal"
+//         }
+//         const keys = [
+//             {
+//                 name: "check-all",
+//                 html: '<input type="checkbox" class="js-remove-check-all">',
+//                 const: '<input type="checkbox" name="remove">',
+//             },
+//             {
+//                 name: "stt",
+//                 html: "#",
+//                 const: null,
+//             },
+//             {
+//                 name: "id",
+//                 html: "Id",
+//                 const: null,
+//             },
+//             {
+//                 name: "name",
+//                 html: "Tên loại sản phẩm",
+//                 const: null,
+//             },
+//             {
+//                 name: "description",
+//                 html: "Mô tả",
+//                 const: null,
+//             },
+//             {
+//                 name: "detail",
+//                 html: "Chi tiết",
+//                 const: '<i class="bi bi-ticket-detailed">',
+//             },
+//             {
+//                 name: "update",
+//                 html: "",
+//                 const: '<i class="bi bi-pencil-square js-update-btn"></i>',
+//             },
+//         ]
+//         const types = [
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//         ]
+//         new Table(init, keys, types)
+//     }
+//     function orderTable() {
+//         const init = {
+//             page: ".app-body.order",
+//             table: ".table.--order",
+//             type: "normal"
+//         }
+//         const keys = [
+//             {
+//                 name: "check-all",
+//                 html: '<input type="checkbox" class="js-remove-check-all">',
+//                 const: '<input type="checkbox" name="remove">',
+//             },
+//             {
+//                 name: "stt",
+//                 html: "#",
+//                 const: null,
+//             },
+//             {
+//                 name: "id",
+//                 html: "Id",
+//                 const: null,
+//             },
+//             {
+//                 name: "name",
+//                 html: "Tên loại sản phẩm",
+//                 const: null,
+//             },
+//             {
+//                 name: "description",
+//                 html: "Mô tả",
+//                 const: null,
+//             },
+//             {
+//                 name: "detail",
+//                 html: "Chi tiết",
+//                 const: '<i class="bi bi-ticket-detailed">',
+//             },
+//             {
+//                 name: "update",
+//                 html: "",
+//                 const: '<i class="bi bi-pencil-square js-update-btn"></i>',
+//             },
+//         ]
+//         const types = [
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//         ]
+//         new Table(init, keys, types)
+//     }
+//     function saleOffTable() {
+//         const init = {
+//             page: ".app-body.sale_off",
+//             table: ".table.--sale_off",
+//             type: "normal"
+//         }
+//         const keys = [
+//             {
+//                 name: "check-all",
+//                 html: '<input type="checkbox" class="js-remove-check-all">',
+//                 const: '<input type="checkbox" name="remove">',
+//             },
+//             {
+//                 name: "stt",
+//                 html: "#",
+//                 const: null,
+//             },
+//             {
+//                 name: "id",
+//                 html: "Id",
+//                 const: null,
+//             },
+//             {
+//                 name: "name",
+//                 html: "Tên loại sản phẩm",
+//                 const: null,
+//             },
+//             {
+//                 name: "description",
+//                 html: "Mô tả",
+//                 const: null,
+//             },
+//             {
+//                 name: "detail",
+//                 html: "Chi tiết",
+//                 const: '<i class="bi bi-ticket-detailed">',
+//             },
+//             {
+//                 name: "update",
+//                 html: "",
+//                 const: '<i class="bi bi-pencil-square js-update-btn"></i>',
+//             },
+//         ]
+//         const types = [
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//         ]
+//         new Table(init, keys, types)
+//     }
+//     function supplierTable() {
+//         const init = {
+//             page: ".app-body.supplier",
+//             table: ".table.--supplier",
+//             type: "normal"
+//         }
+//         const keys = [
+//             {
+//                 name: "check-all",
+//                 html: '<input type="checkbox" class="js-remove-check-all">',
+//                 const: '<input type="checkbox" name="remove">',
+//             },
+//             {
+//                 name: "stt",
+//                 html: "#",
+//                 const: null,
+//             },
+//             {
+//                 name: "id",
+//                 html: "Id",
+//                 const: null,
+//             },
+//             {
+//                 name: "name",
+//                 html: "Tên loại sản phẩm",
+//                 const: null,
+//             },
+//             {
+//                 name: "description",
+//                 html: "Mô tả",
+//                 const: null,
+//             },
+//             {
+//                 name: "detail",
+//                 html: "Chi tiết",
+//                 const: '<i class="bi bi-ticket-detailed">',
+//             },
+//             {
+//                 name: "update",
+//                 html: "",
+//                 const: '<i class="bi bi-pencil-square js-update-btn"></i>',
+//             },
+//         ]
+//         const types = [
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//         ]
+//         new Table(init, keys, types)
+//     }
+//     function roleTable() {
+//         const init = {
+//             page: ".app-body.role",
+//             table: ".table.--role",
+//             type: "normal"
+//         }
+//         const keys = [
+//             {
+//                 name: "check-all",
+//                 html: '<input type="checkbox" class="js-remove-check-all">',
+//                 const: '<input type="checkbox" name="remove">',
+//             },
+//             {
+//                 name: "stt",
+//                 html: "#",
+//                 const: null,
+//             },
+//             {
+//                 name: "id",
+//                 html: "Id",
+//                 const: null,
+//             },
+//             {
+//                 name: "name",
+//                 html: "Tên loại sản phẩm",
+//                 const: null,
+//             },
+//             {
+//                 name: "description",
+//                 html: "Mô tả",
+//                 const: null,
+//             },
+//             {
+//                 name: "detail",
+//                 html: "Chi tiết",
+//                 const: '<i class="bi bi-ticket-detailed">',
+//             },
+//             {
+//                 name: "update",
+//                 html: "",
+//                 const: '<i class="bi bi-pencil-square js-update-btn"></i>',
+//             },
+//         ]
+//         const types = [
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//             {
+//                 id: 1,
+//                 name: "dép",
+//                 description: "dép để mang",
+//             },
+//         ]
+//         new Table(init, keys, types)
+//     }
 
-    window.addEventListener("load", () => {
-        try {
-            customerTable()
-        }
-        catch (err) { }
-        try {
-            categoryTable()
-        }
-        catch (err) { }
-        try {
-            staffTable()
-        }
-        catch (err) { }
-        try {
-            typeTable()
-        }
-        catch (err) { }
-        try {
-            productTable()
-        }
-        catch (err) { }
-        try {
-            saleOffTable()
-        }
-        catch (err) { }
-        try {
-            orderTable()
-        }
-        catch (err) { }
-        try {
-            supplierTable()
-        }
-        catch (err) { }
-        try {
-            roleTable()
-        }
-        catch (err) { }
-    })
-})();
+//     window.addEventListener("load", () => {
+//         try {
+//             customerTable()
+//         }
+//         catch (err) { }
+//         try {
+//             categoryTable()
+//         }
+//         catch (err) { }
+//         try {
+//             staffTable()
+//         }
+//         catch (err) { }
+//         try {
+//             typeTable()
+//         }
+//         catch (err) { }
+//         try {
+//             productTable()
+//         }
+//         catch (err) { }
+//         try {
+//             saleOffTable()
+//         }
+//         catch (err) { }
+//         try {
+//             orderTable()
+//         }
+//         catch (err) { }
+//         try {
+//             supplierTable()
+//         }
+//         catch (err) { }
+//         try {
+//             roleTable()
+//         }
+//         catch (err) { }
+//     })
+// })();
 
 (function input() {
     function checkAll() {
