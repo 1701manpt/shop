@@ -8,8 +8,8 @@
     <link rel="shortcut icon" href="http://nghiquan.shop/favicon.ico" type="image/x-icon">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <script src="./index.js"></script>
-    <link rel="stylesheet" href="./index.css">
+    <script src="../index.js"></script>
+    <link rel="stylesheet" href="../index.css">
 </head>
 
 <body>

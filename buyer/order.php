@@ -18,7 +18,10 @@ require_once "check_account.php";
     <div class="app">
         <?php require "../header.php"; ?>
         <div class="body">
-
+            <div class="body-title">Xác nhận đặt hàng</div>
+            <div class="body-content">
+                
+            </div>
         </div>
     </div>
 </body>

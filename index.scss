@@ -238,8 +238,8 @@ body {
     padding: 16px;
     border-right: 1px solid $color-silver;
     border-bottom: 1px solid $color-silver;
-    transition: $transition;
     background-color: white;
+    transition: $transition;
 
     &:hover {
         box-shadow: 0 0 8px 4px $color-silver;
@@ -247,6 +247,37 @@ body {
         transform: translateY(-4px);
         transition: $transition;
         z-index: 1;
+    }
+
+    &:hover>& {
+        &-control {
+
+            &>button,
+            &>input,
+            &>select,
+            &>textarea {
+                background-color: $color-header;
+                color: white;
+            }
+        }
+    }
+
+    &.selected>& {
+        &-control {
+
+            &>button,
+            &>input,
+            &>select,
+            &>textarea {
+                background-color: $color-header;
+                color: white;
+            }
+        }
+    }
+
+    &.selected {
+        background-color: $color-silver;
+        color: $color-link;
     }
 
     &-margin {
@@ -261,8 +292,36 @@ body {
         }
     }
 
+    &-select {
+        width: fit-content;
+    }
+
+    &-quantily {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &>span {
+            width: 100%;
+            height: 100%;
+        }
+
+        &>input {
+            width: 100%;
+            height: 100%;
+            padding: 4px;
+            outline: none;
+        }
+    }
+
     &-name {
-        font-style: italic;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        min-height: 64px;
+        width: 100%;
+        overflow: hidden;
+        text-align: start;
     }
 
     &-price {
@@ -343,8 +402,26 @@ body {
         z-index: 1;
     }
 
+    &:hover>& {
+        &-control {
+
+            &>button,
+            &>input,
+            &>select,
+            &>textarea {
+                background-color: $color-header;
+                color: white;
+            }
+        }
+    }
+
     &-margin {
         margin-bottom: 8px;
+    }
+
+    &-id,
+    &-purchase {
+        font-weight: bolder;
     }
 
     &-image {
@@ -352,6 +429,15 @@ body {
 
         &>img {
             width: 100%;
+        }
+    }
+
+    &-price {
+        font-weight: bolder;
+        text-transform: uppercase;
+
+        &>span {
+            font-size: 1.2em;
         }
     }
 
@@ -427,7 +513,7 @@ body {
 
 .area {
     &+.area {
-        margin-top: 32px;
+        margin-top: 64px;
     }
 
     &-view-full {
@@ -439,9 +525,13 @@ body {
         &>a {
             padding: 8px;
             background-color: rgb(241, 241, 241);
+            background-color: $color-header;
+            color: white;
+
 
             &:hover {
-                color: rgba(0, 60, 255, 0.801);
+                // color: rgba(0, 60, 255, 0.801);
+                opacity: 0.9;
             }
         }
     }
@@ -564,13 +654,16 @@ body {
 
     &-selects,
     &-orders {
-        &>button {
+
+        &>button,
+        &>label {
+            display: block;
             padding: 8px;
             color: $color-header;
             border: 1px solid $color-header;
             background-color: white;
 
-            &:active {
+            &:hover {
                 color: white;
                 background-color: $color-header;
             }
@@ -602,15 +695,18 @@ body {
 
         &-top {
             grid-column: 1 / 6;
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
             align-items: center;
             justify-content: space-between;
             background-color: $color-silver;
+            color: $color-header;
         }
 
         &-name {
             font-size: 16px;
             text-transform: uppercase;
+            grid-column: 1 / 4;
         }
 
         &-image {
@@ -626,6 +722,7 @@ body {
         &-control {
             display: flex;
             justify-content: end;
+            grid-column: 4 / 6;
 
             &-add,
             &-order {
@@ -657,10 +754,11 @@ body {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                padding-bottom: 16px;
+                padding: 16px 0;
                 margin-bottom: 16px;
-                font-weight: bolder;
+                text-transform: uppercase;
                 border-bottom: 1px solid #f1f1f1;
+                background-color: $color-silver;
             }
 
             &-list {}
@@ -697,6 +795,7 @@ body {
     &-description {
         border-left: 1px solid #f1f1f1;
         border-top: 1px solid #f1f1f1;
+        margin-bottom: 32px;
 
         &-title {
             font-size: 16px;

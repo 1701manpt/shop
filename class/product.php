@@ -1,6 +1,7 @@
 <?php
 class Product
 {
+    private $connec;
     private $init = [
         "id" => null,
         "name" => null,
@@ -15,6 +16,7 @@ class Product
         foreach ($init as $key => $val) {
             $this->init[$key] = $val;
         }
+        $this->connec = new Connection;
     }
 
     function __to_string()
@@ -42,7 +44,6 @@ class Product
 
     function insert()
     {
-        $connec = new Connection;
         $i = 0;
         foreach ($this->init as $key => $val) {
             $init[$i++] = $val;
@@ -55,29 +56,27 @@ class Product
                             `description`, 
                             `display`) 
                 VALUES ('$init[1]','$init[2]','$init[3]','$init[4]','$init[5]','$init[6]')";
-        $result = mysqli_query($connec->open(), $sql);
-        $connec->close();
+        $result = mysqli_query($this->connec->open(), $sql);
+        $this->connec->close();
         return $result;
     }
 
     function select($id)
     {
-        $connec = new Connection;
         $sql = "SELECT * FROM `product` WHERE `id` = '$id'";
-        $result = mysqli_query($connec->open(), $sql);
-        $object = new product(array());
+        $result = mysqli_query($this->connec->open(), $sql);
+        $object = new Product([]);
         while ($row = mysqli_fetch_assoc($result)) {
             foreach ($row as $key => $val) {
                 $object->__set($key, $val);
             }
         }
-        $connec->close();
+        $this->connec->close();
         return $object;
     }
 
     function update($id)
     {
-        $connec = new Connection;
         $i = 0;
         foreach ($this->init as $key => $val) {
             $init[$i++] = $val;
@@ -91,64 +90,77 @@ class Product
                     `type_id`='$init[5]',
                     `display`='$init[6]'
                 WHERE `id` = '$id'";
-        $result = mysqli_query($connec->open(), $sql);
-        $connec->close();
+        $result = mysqli_query($this->connec->open(), $sql);
+        $this->connec->close();
         return $result;
     }
     function delete($id)
     {
-        $connec = new Connection;
         $sql = "DELETE FROM `product` WHERE `id` = '$id'";
-        $result = mysqli_query($connec->open(), $sql);
-        $connec->close();
+        $result = mysqli_query($this->connec->open(), $sql);
+        $this->connec->close();
         return $result;
     }
 
-    function get_newest($display, $amount)
+    function get_newest($display, $amount = null)
     {
-        $connection = new Connection;
-        $sql = "SELECT * FROM `product` WHERE `display` = '$display' ORDER BY `id` DESC LIMIT 0, $amount";
-        $result = mysqli_query($connection->open(), $sql);
+        $sql = "";
+        if ($amount == null) {
+            $sql = "SELECT * FROM `product` WHERE `display` = '$display'";
+        } else {
+            $sql = "SELECT * FROM `product` WHERE `display` = '$display' ORDER BY `id` DESC LIMIT 0, $amount";
+        }
+        $result = mysqli_query($this->connec->open(), $sql);
         $data = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $data[] = (new Product([]))->select($row['id']);
         }
-        $connection->close();
+        $this->connec->close();
+        return $data;
+    }
+
+    function get_sortby_price($display, $order)
+    {
+        $sql = "SELECT * FROM `product` WHERE `display` = '$display' ORDER BY `price` $order";
+        $result = mysqli_query($this->connec->open(), $sql);
+        $data = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = (new Product([]))->select($row['id']);
+        }
+        $this->connec->close();
         return $data;
     }
 
     function get_by_category($display, $id)
     {
-        $connection = new Connection;
         $sql = "SELECT `product_id`, `category_id` `display` 
                 FROM `category_and_product` 
                 JOIN `product` ON `id` = `product_id` 
                 WHERE `category_id` = '$id' 
                 AND `display` = '$display'";
-        $result = mysqli_query($connection->open(), $sql);
+        $result = mysqli_query($this->connec->open(), $sql);
         $data = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $data[] = (new Product([]))->select($row['product_id']);
         }
-        $connection->close();
+        $this->connec->close();
         return $data;
     }
 
     function get_all($display = null)
     {
-        $connection = new Connection;
         $sql = "";
         if ($display == null) {
             $sql = "SELECT * FROM `product`";
         } else {
             $sql = "SELECT * FROM `product` WHERE `display` = '$display'";
         }
-        $result = mysqli_query($connection->open(), $sql);
+        $result = mysqli_query($this->connec->open(), $sql);
         $data = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $data[] = (new Product([]))->select($row['id']);
         }
-        $connection->close();
+        $this->connec->close();
         return $data;
     }
 }

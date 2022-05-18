@@ -1,6 +1,7 @@
 <?php
 class Customer
 {
+    private $connec;
     private $init = array(
         "id" => null,
         "name" => null,
@@ -18,6 +19,7 @@ class Customer
         foreach ($init as $key => $val) {
             $this->init[$key] = $val;
         }
+        $this->connec = new Connection;
     }
 
     function __to_string()
@@ -45,7 +47,6 @@ class Customer
 
     function insert()
     {
-        $connec = new Connection;
         $i = 0;
         foreach ($this->init as $key => $val) {
             $init[$i++] = $val;
@@ -62,29 +63,27 @@ class Customer
                             `state`
                         ) 
                 VALUES ('$init[1]','$init[2]','$init[3]','$init[4]','$init[5]','$init[6]','$init[7]','$init[8]')";
-        $result = mysqli_query($connec->open(), $sql);
-        $connec->close();
+        $result = mysqli_query($this->connec->open(), $sql);
+        $this->connec->close();
         return $result;
     }
 
     function select($id)
     {
-        $connec = new Connection;
         $sql = "SELECT * FROM `customer` WHERE `id` = '$id'";
-        $result = mysqli_query($connec->open(), $sql);
+        $result = mysqli_query($this->connec->open(), $sql);
         $object = new customer(array());
         while ($row = mysqli_fetch_assoc($result)) {
             foreach ($row as $key => $val) {
                 $object->__set($key, $val);
             }
         }
-        $connec->close();
+        $this->connec->close();
         return $object;
     }
 
     function update($id)
     {
-        $connec = new Connection;
         $i = 0;
         foreach ($this->init as $key => $val) {
             $init[$i++] = $val;
@@ -100,33 +99,34 @@ class Customer
                     `date_create`='$init[7]',
                     `state` = '$init[8]'
                 WHERE `id` = '$id'";
-        $result = mysqli_query($connec->open(), $sql);
-        $connec->close();
+        $result = mysqli_query($this->connec->open(), $sql);
+        $this->connec->close();
         return $result;
     }
+    
     function delete($id)
     {
-        $connec = new Connection;
         $sql = "DELETE FROM `customer` WHERE `id` = '$id'";
-        $result = mysqli_query($connec->open(), $sql);
-        $connec->close();
+        $result = mysqli_query($this->connec->open(), $sql);
+        $this->connec->close();
         return $result;
     }
+
     function get_all($state = null)
     {
-        $connec = new Connection;
         $sql = "SELECT * FROM `customer`";
-        $result = mysqli_query($connec->open(), $sql);
+        $result = mysqli_query($this->connec->open(), $sql);
         $list = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $list[] = (new Customer([]))->select($row['id']);
         }
-        $connec->close();
+        $this->connec->close();
         return $list;
     }
+
     function is_signin($number_phone, $email, $password)
     {
-        $result = false;
+        $result = "false";
         $accounts = (new Customer([]))->get_all();
         foreach ($accounts as $key => $account) {
             if (
@@ -134,7 +134,7 @@ class Customer
                 $account->__get("email") == $email &&
                 $account->__get("password") == $password
             ) {
-                $result = true;
+                $result = $account->__get("id");
                 break;
             }
         }

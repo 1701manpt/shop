@@ -191,8 +191,8 @@ body.disabled-scrollbar {
   padding: 16px;
   border-right: 1px solid #f1f1f1f1;
   border-bottom: 1px solid #f1f1f1f1;
-  transition: all 0.2s ease;
   background-color: white;
+  transition: all 0.2s ease;
 }
 .product:hover {
   box-shadow: 0 0 8px 4px #f1f1f1f1;
@@ -200,6 +200,18 @@ body.disabled-scrollbar {
   transform: translateY(-4px);
   transition: all 0.2s ease;
   z-index: 1;
+}
+.product:hover > .product-control > button, .product:hover > .product-control > input, .product:hover > .product-control > select, .product:hover > .product-control > textarea {
+  background-color: #ff4500;
+  color: white;
+}
+.product.selected > .product-control > button, .product.selected > .product-control > input, .product.selected > .product-control > select, .product.selected > .product-control > textarea {
+  background-color: #ff4500;
+  color: white;
+}
+.product.selected {
+  background-color: #f1f1f1f1;
+  color: #003cffcc;
 }
 .product-margin {
   margin-bottom: 8px;
@@ -210,8 +222,32 @@ body.disabled-scrollbar {
 .product-image > img {
   width: 100%;
 }
+.product-select {
+  width: fit-content;
+}
+.product-quantily {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.product-quantily > span {
+  width: 100%;
+  height: 100%;
+}
+.product-quantily > input {
+  width: 100%;
+  height: 100%;
+  padding: 4px;
+  outline: none;
+}
 .product-name {
-  font-style: italic;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  min-height: 64px;
+  width: 100%;
+  overflow: hidden;
+  text-align: start;
 }
 .product-price {
   font-weight: bolder;
@@ -277,14 +313,28 @@ body.disabled-scrollbar {
   transition: all 0.2s ease;
   z-index: 1;
 }
+.order:hover > .order-control > button, .order:hover > .order-control > input, .order:hover > .order-control > select, .order:hover > .order-control > textarea {
+  background-color: #ff4500;
+  color: white;
+}
 .order-margin {
   margin-bottom: 8px;
+}
+.order-id, .order-purchase {
+  font-weight: bolder;
 }
 .order-image {
   width: 100%;
 }
 .order-image > img {
   width: 100%;
+}
+.order-price {
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+.order-price > span {
+  font-size: 1.2em;
 }
 .order-control {
   width: 100%;
@@ -346,7 +396,7 @@ body.disabled-scrollbar {
 }
 
 .area + .area {
-  margin-top: 32px;
+  margin-top: 64px;
 }
 .area-view-full {
   display: flex;
@@ -357,9 +407,11 @@ body.disabled-scrollbar {
 .area-view-full > a {
   padding: 8px;
   background-color: #f1f1f1;
+  background-color: #ff4500;
+  color: white;
 }
 .area-view-full > a:hover {
-  color: rgba(0, 60, 255, 0.801);
+  opacity: 0.9;
 }
 .area-title {
   text-transform: uppercase;
@@ -455,13 +507,14 @@ body.disabled-scrollbar {
 .cart-selects {
   margin-right: 16px;
 }
-.cart-selects > button, .cart-orders > button {
+.cart-selects > button, .cart-selects > label, .cart-orders > button, .cart-orders > label {
+  display: block;
   padding: 8px;
   color: #ff4500;
   border: 1px solid #ff4500;
   background-color: white;
 }
-.cart-selects > button:active, .cart-orders > button:active {
+.cart-selects > button:hover, .cart-selects > label:hover, .cart-orders > button:hover, .cart-orders > label:hover {
   color: white;
   background-color: #ff4500;
 }
@@ -487,14 +540,17 @@ body.disabled-scrollbar {
 }
 .land-header-top {
   grid-column: 1/6;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
   align-items: center;
   justify-content: space-between;
   background-color: #f1f1f1f1;
+  color: #ff4500;
 }
 .land-header-name {
   font-size: 16px;
   text-transform: uppercase;
+  grid-column: 1/4;
 }
 .land-header-image {
   grid-column: 1/4;
@@ -506,6 +562,7 @@ body.disabled-scrollbar {
 .land-header-control {
   display: flex;
   justify-content: end;
+  grid-column: 4/6;
 }
 .land-header-control-add > button, .land-header-control-order > button {
   padding: 8px;
@@ -529,10 +586,11 @@ body.disabled-scrollbar {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 16px;
+  padding: 16px 0;
   margin-bottom: 16px;
-  font-weight: bolder;
+  text-transform: uppercase;
   border-bottom: 1px solid #f1f1f1;
+  background-color: #f1f1f1f1;
 }
 .land-header-info-item {
   padding: 8px 0;
@@ -559,6 +617,7 @@ body.disabled-scrollbar {
 .land-description {
   border-left: 1px solid #f1f1f1;
   border-top: 1px solid #f1f1f1;
+  margin-bottom: 32px;
 }
 .land-description-title {
   font-size: 16px;

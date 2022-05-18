@@ -65,7 +65,7 @@
             //     }
             // }
         }
-        if (!empty($_SESSION["email"]) && !empty($_SESSION["number_phone"]) && !empty($_SESSION["password"])) {
+        if (!empty($_SESSION["id"])) {
             echo '
             <div class="notification success">
                 Đã có tài khoản hiện đang đăng nhập
@@ -89,17 +89,15 @@
                 </div>';
                 exit;
             } else {
-                if (!(new Customer([]))->is_signin($number_phone, $email, $password)) {
+                if ((new Customer([]))->is_signin($number_phone, $email, $password) == "false") {
                     echo '
                     <div class="notification fail">
                         Đăng nhập thất bại
                     </div>';
                     exit;
                 }
-                if ((new Customer([]))->is_signin($number_phone, $email, $password)) {
-                    $_SESSION['number_phone'] = $number_phone;
-                    $_SESSION['email'] = $email;
-                    $_SESSION['password'] = $password;
+                if (!((new Customer([]))->is_signin($number_phone, $email, $password) == "false")) {
+                    $_SESSION['id'] = (new Customer([]))->is_signin($number_phone, $email, $password);
                     if ($a_check == 1) {
                         setcookie("siteAuth", 'usr=' . $email . '&hash=' . $password, time() + (3600 * 24 * 30));
                     }
@@ -111,7 +109,7 @@
                 }
             }
         } else {
-            if (!isset($_SESSION["number_phone"]) || !isset($_SESSION["email"]) || !isset($_SESSION["password"])) {
+            if (!isset($_SESSION["id"])) {
                 echo '
                 <div class="notification success">
                     Vui lòng đăng nhập để tiếp tục

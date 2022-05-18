@@ -7,7 +7,7 @@
         // private $password = "2155128662001N@m";
         private $password = "";
         private $conn;
-
+        
         function open() {
             $this->conn = mysqli_connect($this->server_name, $this->user_name, $this->password, $this->database);
             mysqli_set_charset($this->conn, 'UTF8');

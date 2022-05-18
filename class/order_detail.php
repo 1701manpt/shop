@@ -1,6 +1,7 @@
 <?php
 class OrderDetail
 {
+    private $connec;
     private $init = array(
         "order_id" => null,
         "product_id" => null,
@@ -13,6 +14,7 @@ class OrderDetail
         foreach ($init as $key => $val) {
             $this->init[$key] = $val;
         }
+        $this->connec = new Connection;
     }
 
     function __to_string()
@@ -40,7 +42,6 @@ class OrderDetail
 
     function insert()
     {
-        $connec = new Connection;
         $i = 0;
         foreach ($this->init as $key => $val) {
             $init[$i++] = $val;
@@ -51,29 +52,43 @@ class OrderDetail
                             `quantily`, 
                             `price`) 
                 VALUES ('$init[0]', '$init[1]','$init[2]','$init[3]')";
-        $result = mysqli_query($connec->open(), $sql);
-        $connec->close();
+        $result = mysqli_query($this->connec->open(), $sql);
+        $this->connec->close();
         return $result;
     }
 
-    function select($order_id, $product_id)
+    function selects($order_id = null, $product_id = null)
     {
-        $connec = new Connection;
-        $sql = "SELECT * FROM `order_detail` WHERE `order_id` = '$order_id' AND `product_id` = '$product_id'";
-        $result = mysqli_query($connec->open(), $sql);
-        $object = new OrderDetail(array());
+        $sql = "";
+        if ($order_id == null && $product_id == null) {
+            $sql = "SELECT * FROM `order_detail`";
+        } else {
+            if ($product_id == null) {
+                $sql = "SELECT * FROM `order_detail` WHERE `order_id` = '$order_id'";
+            }
+            if ($order_id == null) {
+                $sql = "SELECT * FROM `order_detail` WHERE `product_id` = '$product_id'";
+            }
+        }
+        if ($order_id != null && $product_id != null) {
+            $sql = "SELECT * FROM `order_detail` WHERE `product_id` = '$product_id' AND `order_id` = '$order_id'";
+        }
+
+        $result = mysqli_query($this->connec->open(), $sql);
+        $list = array();
         while ($row = mysqli_fetch_assoc($result)) {
+            $object = new OrderDetail([]);
             foreach ($row as $key => $val) {
                 $object->__set($key, $val);
             }
+            $list[] = $object;
         }
-        $connec->close();
-        return $object;
+        $this->connec->close();
+        return $list;
     }
 
     function update($order_id, $product_id)
     {
-        $connec = new Connection;
         $i = 0;
         foreach ($this->init as $key => $val) {
             $init[$i++] = $val;
@@ -85,16 +100,15 @@ class OrderDetail
                     `price`='$init[3]'
                 WHERE `order_id` = '$order_id'
                 AND `product_id` = '$product_id'";
-        $result = mysqli_query($connec->open(), $sql);
-        $connec->close();
+        $result = mysqli_query($this->connec->open(), $sql);
+        $this->connec->close();
         return $result;
     }
     function delete($order_id, $product_id)
     {
-        $connec = new Connection;
         $sql = "DELETE FROM `order_detail` WHERE `order_id` = '$order_id' AND `product_id` = '$product_id'";
-        $result = mysqli_query($connec->open(), $sql);
-        $connec->close();
+        $result = mysqli_query($this->connec->open(), $sql);
+        $this->connec->close();
         return $result;
     }
 }
@@ -139,4 +153,8 @@ class OrderDetail
 //     echo "OK";
 // } else {
 //     echo "FAIL";
+// }
+
+// foreach ((new OrderDetail([]))->selects(6) as $order_deatail) {
+//     echo $order_deatail->__get("price");
 // }

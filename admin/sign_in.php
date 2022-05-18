@@ -1,3 +1,4 @@
+<?php require_once 'header.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +10,6 @@
     <title>Sign In - Administrator</title>
     <link rel="stylesheet" href="./index.css">
 </head>
-
 <body>
     <div class="app">
         <div class="app-backdrop"></div>

@@ -1,11 +1,14 @@
 <?php
+// require "../connection.php";
 class Order
 {
+    private $connec;
     private $init = array(
         "id" => null,
         "customer_id" => null,
         "number_phone" => null,
         "address" => null,
+        "quantily"=> null,
         "price" => null,
         "transport_fee" => null,
         "date_start" => null,
@@ -19,6 +22,7 @@ class Order
         foreach ($init as $key => $val) {
             $this->init[$key] = $val;
         }
+        $this->connec = new Connection;
     }
 
     function __to_string()
@@ -46,7 +50,6 @@ class Order
 
     function insert()
     {
-        $connec = new Connection;
         $i = 0;
         foreach ($this->init as $key => $val) {
             $init[$i++] = $val;
@@ -62,29 +65,27 @@ class Order
                             `description`, 
                             `purchase_id`) 
                 VALUES ('$init[1]','$init[2]','$init[3]','$init[4]','$init[5]','$init[6]','$init[7]','$init[8]','$init[9]')";
-        $result = mysqli_query($connec->open(), $sql);
-        $connec->close();
+        $result = mysqli_query($this->connec->open(), $sql);
+        $this->connec->close();
         return $result;
     }
 
     function select($id)
     {
-        $connec = new Connection;
         $sql = "SELECT * FROM `order` WHERE `id` = '$id'";
-        $result = mysqli_query($connec->open(), $sql);
+        $result = mysqli_query($this->connec->open(), $sql);
         $object = new Order(array());
         while ($row = mysqli_fetch_assoc($result)) {
             foreach ($row as $key => $val) {
                 $object->__set($key, $val);
             }
         }
-        $connec->close();
+        $this->connec->close();
         return $object;
     }
 
     function update($id)
     {
-        $connec = new Connection;
         $i = 0;
         foreach ($this->init as $key => $val) {
             $init[$i++] = $val;
@@ -100,17 +101,64 @@ class Order
                     `description`='$init[8]',
                     `purchase_id`='$init[9]'
                 WHERE `id` = '$id'";
-        $result = mysqli_query($connec->open(), $sql);
-        $connec->close();
+        $result = mysqli_query($this->connec->open(), $sql);
+        $this->connec->close();
         return $result;
     }
+    
     function delete($id)
     {
-        $connec = new Connection;
         $sql = "DELETE FROM `order` WHERE `id` = '$id'";
-        $result = mysqli_query($connec->open(), $sql);
-        $connec->close();
+        $result = mysqli_query($this->connec->open(), $sql);
+        $this->connec->close();
         return $result;
+    }
+
+    function get($customer_id = null, $purchase_id = null)
+    {
+        $sql = "";
+        if ($customer_id == null && $purchase_id == null) {
+            $sql = "SELECT * FROM `order`";
+        } else {
+            if ($purchase_id == null) {
+                $sql = "SELECT * FROM `order` WHERE `customer_id` = '$customer_id'";
+            }
+            if ($customer_id == null) {
+                $sql = "SELECT * FROM `order` WHERE `purchase_id` = '$purchase_id'";
+            }
+        }
+        if($customer_id != null && $purchase_id != null) {
+            $sql = "SELECT * FROM `order` WHERE `purchase_id` = '$purchase_id' AND `customer_id` = '$customer_id'";
+        }
+        $result = mysqli_query($this->connec->open(), $sql);
+        $list = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $list[] = (new Order([]))->select($row['id']);
+        }
+        $this->connec->close();
+        return $list;
+    }
+
+    function auto_quantily($id) {
+        $sql = "SELECT count(*) FROM `order_detail` WHERE `order_id` = '$id'";
+        $result = mysqli_query($this->connec->open(), $sql);
+        $quantily = 0;
+        while ($row = mysqli_fetch_assoc($result)) {
+            $quantily = $row['count(*)'];
+        }
+        $this->connec->close();
+        return $quantily;
+    }
+
+    function auto_price($id) {
+        $sql = "SELECT sum(`price`) FROM `order_detail` WHERE `order_id` = '$id'";
+        $result = mysqli_query($this->connec->open(), $sql);
+        $price = 0;
+        while ($row = mysqli_fetch_assoc($result)) {
+            $price = $row['sum(`price`)'];
+        }
+        $this->connec->close();
+        return $price;
     }
 }
 
@@ -179,3 +227,5 @@ class Order
 // } else {
 //     echo "FAIL";
 // }
+
+// echo (new Order([]))->select(4)->__get("customer_id");

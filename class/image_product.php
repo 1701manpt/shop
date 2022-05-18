@@ -1,6 +1,7 @@
 <?php
 class ImageProduct
 {
+    private $connec;
     private $init = array("id" => null, "product_id" => null, "href" => null, "alt" => null, "index" => null);
 
     function __construct($init)
@@ -8,6 +9,7 @@ class ImageProduct
         foreach ($init as $key => $val) {
             $this->init[$key] = $val;
         }
+        $this->connec = new Connection;
     }
 
     function __to_string()
@@ -35,36 +37,33 @@ class ImageProduct
 
     function insert()
     {
-        $connec = new Connection;
         $i = 0;
         foreach ($this->init as $key => $val) {
             $init[$i++] = $val;
         }
         $sql = "INSERT INTO `image_product`(`product_id`, `href`, `alt`, `index`) 
                 VALUES ('$init[1]','$init[2]','$init[3]','$init[4]')";
-        $result = mysqli_query($connec->open(), $sql);
-        $connec->close();
+        $result = mysqli_query($this->connec->open(), $sql);
+        $this->connec->close();
         return $result;
     }
 
     function select($id)
     {
-        $connec = new Connection;
         $sql = "SELECT * FROM `image_product` WHERE `id` = '$id'";
-        $result = mysqli_query($connec->open(), $sql);
+        $result = mysqli_query($this->connec->open(), $sql);
         $object = new ImageProduct(array());
         while ($row = mysqli_fetch_assoc($result)) {
             foreach ($row as $key => $val) {
                 $object->__set($key, $val);
             }
         }
-        $connec->close();
+        $this->connec->close();
         return $object;
     }
 
     function update($id)
     {
-        $connec = new Connection;
         $i = 0;
         foreach ($this->init as $key => $val) {
             $init[$i++] = $val;
@@ -72,16 +71,28 @@ class ImageProduct
         $sql = "UPDATE `image_product` 
                 SET `product_id`='$init[1]',`href`='$init[2]',`alt`='$init[3]',`index`='$init[4]' 
                 WHERE `id` = '$id'";
-        $result = mysqli_query($connec->open(), $sql);
-        $connec->close();
+        $result = mysqli_query($this->connec->open(), $sql);
+        $this->connec->close();
         return $result;
     }
-    function delete($id) {
-        $connec = new Connection;
+    function delete($id)
+    {
         $sql = "DELETE FROM `image_product` WHERE `id` = '$id'";
-        $result = mysqli_query($connec->open(), $sql);
-        $connec->close();
+        $result = mysqli_query($this->connec->open(), $sql);
+        $this->connec->close();
         return $result;
+    }
+
+    function get_by_product($product_id)
+    {
+        $sql = "SELECT * FROM `image_product` WHERE `product_id` = '$product_id' ORDER BY `index` ASC";
+        $result = mysqli_query($this->connec->open(), $sql);
+        $list = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $list[] = (new ImageProduct([]))->select($row['id']);
+        }
+        $this->connec->close();
+        return $list;
     }
 }
 

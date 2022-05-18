@@ -3,6 +3,11 @@ require_once "connection.php";
 require_once "class/category.php";
 require_once "class/product.php";
 require_once "class/customer.php";
+require_once "class/purchase.php";
+require_once "class/order.php";
+require_once "class/order_detail.php";
+require_once "class/image_product.php";
+
 ?>
 <link rel="stylesheet" href="/index.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
@@ -32,7 +37,7 @@ require_once "class/customer.php";
                 </div>
                 <span>Giỏ hàng</span>
             </a>
-            <a class="header-main-purchase" href="../buyer/purchase.php?type=1">
+            <a class="header-main-purchase" href="../buyer/purchase.php">
                 <div class="header-main-purchase-icon">
                     <i class="bi bi-bag"></i>
                 </div>
@@ -42,7 +47,16 @@ require_once "class/customer.php";
                 <div class="header-main-account-icon">
                     <i class="bi bi-person-circle"></i>
                 </div>
-                <span class="header-main-account-name">Tài khoản</span>
+                <span class="header-main-account-name">
+                    <?php
+                    if (!empty($_SESSION["id"])) {
+                        echo (new Customer([]))->select($_SESSION["id"])->__get("name");
+                        // echo $_SESSION["id"];
+                    } else {
+                        echo "Tài khoản";
+                    }
+                    ?>
+                </span>
             </a>
             <div class="header-main-menu jsToggleMenu">
                 <div class="header-main-menu-icon">
@@ -69,7 +83,7 @@ require_once "class/customer.php";
             </div>
             <span>Danh mục</span>
         </a>
-        <a class="header-menu-item" href="/products.php?sort_by=popular">
+        <a class="header-menu-item" href="/products.php?sort_by=pop">
             <div class="header-menu-item-icon">
                 <i class="bi bi-box"></i>
             </div>

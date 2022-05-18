@@ -1,8 +1,6 @@
 <?php
 session_start();
-unset($_SESSION["email"]);
-unset($_SESSION['number_phone']);
-unset($_SESSION['password']);
+unset($_SESSION["id"]);
 echo '<script>
 window.location = "/buyer/sign_in.php"
 </script>';

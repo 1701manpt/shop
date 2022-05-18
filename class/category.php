@@ -1,126 +1,130 @@
 <?php
 class Category
 {
-    private $id, $name, $image_avatar, $description, $display;
-    function __construct($id = null, $name = null, $image_avatar = null, $description = null, $display = null)
+    private  $connec;
+    private $init = [
+        "id" => null,
+        "name" => null,
+        "image_avatar" => null,
+        "description" => null,
+        "display" => null,
+    ];
+
+    function __construct($init)
     {
-        $this->id = $id;
-        $this->name = $name;
-        $this->image_avatar = $image_avatar;
-        $this->description = $description;
-        $this->display = $display;
-    }
-    function get($id)
-    {
-        $connection = new Connection;
-        $sql = "SELECT * FROM `category`
-                    WHERE `id`='$id'";
-        $result = mysqli_query($connection->open(), $sql);
-        while ($row = mysqli_fetch_assoc($result)) {
-            $this->id = $row['id'];
-            $this->name = $row['name'];
-            $this->image_avatar = $row['image_avatar'];
-            $this->description = $row['description'];
-            $this->display = $row['display'];
+        foreach ($init as $key => $val) {
+            $this->init[$key] = $val;
         }
-        $connection->close();
-        return $this;
+        $this->connec = new Connection;
+    }
+
+    function __to_string()
+    {
+        foreach ($this->init as $key => $val) {
+            echo $key . " : " . $val . "<br>";
+        }
+    }
+
+    function __to_json()
+    {
+        $json = $this->init;
+        echo json_encode($json);
+    }
+
+    function __get($property_name)
+    {
+        return $this->init[$property_name];
+    }
+
+    function __set($property_name, $property_value)
+    {
+        $this->init[$property_name] = $property_value;
+    }
+
+    function insert()
+    {
+        $i = 0;
+        foreach ($this->init as $key => $val) {
+            $init[$i++] = $val;
+        }
+        $sql = "INSERT INTO `category`
+                        (
+                            `name`, 
+                            `image_avatar`, 
+                            `description`, 
+                            `display`, 
+                        ) 
+                VALUES ('$init[1]','$init[2]','$init[3]','$init[4]'";
+        $result = mysqli_query($this->connec->open(), $sql);
+        $this->connec->close();
+        return $result;
+    }
+
+    function select($id)
+    {
+        $sql = "SELECT * FROM `category` WHERE `id` = '$id'";
+        $result = mysqli_query($this->connec->open(), $sql);
+        $object = new Category([]);
+        while ($row = mysqli_fetch_assoc($result)) {
+            foreach ($row as $key => $val) {
+                $object->__set($key, $val);
+            }
+        }
+        $this->connec->close();
+        return $object;
+    }
+
+    function update($id)
+    {
+        $i = 0;
+        foreach ($this->init as $key => $val) {
+            $init[$i++] = $val;
+        }
+        $sql = "UPDATE `category` 
+                SET `id`='$init[0]',
+                    `name`='$init[1]',
+                    `image_avatar`='$init[2]',
+                    `description`='$init[3]',
+                    `display`='$init[4]',
+                WHERE `id` = '$id'";
+        $result = mysqli_query($this->connec->open(), $sql);
+        $this->connec->close();
+        return $result;
+    }
+    function delete($id)
+    {
+        $sql = "DELETE FROM `category` WHERE `id` = '$id'";
+        $result = mysqli_query($this->connec->open(), $sql);
+        $this->connec->close();
+        return $result;
     }
 
     function get_all($display = null)
     {
-        $connection = new Connection;
-        $sql = "SELECT * FROM `category` WHERE `display` = '$display'";
-        $result = mysqli_query($connection->open(), $sql);
+        $sql = "";
+        if($display == null) {
+            $sql = "SELECT * FROM `category`";
+        } else {
+            $sql = "SELECT * FROM `category` WHERE `display` = '$display'";
+        }
+        $result = mysqli_query($this->connec->open(), $sql);
         $data = array();
         while ($row = mysqli_fetch_assoc($result)) {
-            $data[] = (new Category)->get($row['id']);
+            $data[] = (new Category([]))->select($row['id']);
         }
-        $connection->close();
+        $this->connec->close();
         return $data;
     }
 
     function get_limit($display = null, $amount)
     {
-        $connection = new Connection;
         $sql = "SELECT * FROM `category` WHERE `display` = '$display' LIMIT 0, $amount";
-        $result = mysqli_query($connection->open(), $sql);
+        $result = mysqli_query($this->connec->open(), $sql);
         $data = array();
         while ($row = mysqli_fetch_assoc($result)) {
-            $data[] = (new Category)->get($row['id']);
+            $data[] = (new Category([]))->select($row['id']);
         }
-        $connection->close();
+        $this->connec->close();
         return $data;
-    }
-
-    function insert()
-    {
-        $connection = new Connection;
-        $sql = "INSERT INTO `category`(`name`, `image_avatar`, `description`, `display`)
-                    VALUES ('$this->name','$this->image_avatar','$this->description','$this->display')";
-        $result = mysqli_query($connection->open(), $sql);
-        $connection->close();
-        return $result;
-    }
-
-    function update()
-    {
-        $connection = new Connection;
-        $sql = "UPDATE `category` 
-                    SET `id`='$this->id',`name`='$this->name', `image_avatar`='$this->image_avatar',`description`='$this->description',`display`='$this->display' 
-                    WHERE `id` = '$this->id'";
-        $result = mysqli_query($connection->open(), $sql);
-        $connection->close();
-        return $result;
-    }
-
-    function delete()
-    {
-        $connection = new Connection;
-        $sql = "DELETE FROM `category` WHERE `id` = '$this->id'";
-        $result = mysqli_query($connection->open(), $sql);
-        $connection->close();
-        return $result;
-    }
-
-    function get_id()
-    {
-        return $this->id;
-    }
-    function set_id($id)
-    {
-        $this->id = $id;
-    }
-    function get_name()
-    {
-        return $this->name;
-    }
-    function set_name($name)
-    {
-        $this->name = $name;
-    }
-    function get_description()
-    {
-        return $this->description;
-    }
-    function set_description($description)
-    {
-        $this->description = $description;
-    }
-    function get_image_avatar()
-    {
-        return $this->image_avatar;
-    }
-    function set_image_avatar($image_avatar)
-    {
-        $this->image_avatar = $image_avatar;
-    }
-    function get_display()
-    {
-        return $this->display;
-    }
-    function set_display($display)
-    {
-        $this->display = $display;
     }
 }
